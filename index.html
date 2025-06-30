@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Sip Spot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HLAVIČKA -->
+  <header>
+    <div class="logo">
+      <img src="images/logo.jpg" alt="The Sip Spot logo">
+    </div>    
+    
+
+    <nav>
+      <button class="hamburger" onclick="toggleMenu()">☰</button>
+      <ul id="nav-links">
+        <li><a href="#">Domov</a></li>
+        <li><a href="#onas">O nás</a></li>
+        <li><a href="#eventy">Eventy</a></li>
+        <li><a href="#odporucania">Referencie</a></li> 
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+       
+    
+  </header>
+
+  <!-- HLAVNÝ OBSAH -->
+  <main>
+    <h2>Vitajte!</h2>
+    <p>Organizujeme jedinečný nápojový catering na mieru – nápoje, servis a atmosféra presne podľa vašich predstáv. Či už plánujete svadbu, firemný večierok alebo narodeninovú párty, prinesieme vám profesionálny bar kamkoľvek. Naším cieľom nie je len nalievať drinky, ale vytvoriť zážitok, na ktorý vaši hostia nezabudnú. The Sip Spot je mladý, svieži a vždy pripravený spraviť z vášho eventu výnimočnú udalosť.</p>
+  
+    <section id="onas">
+      <div class="onas-container">
+        <div class="onas-image">
+          <img src="images/o-nas.jpg" alt="Náš tím pri práci">
+        </div>
+        <div class="onas-text">
+          <h2>O nás</h2>
+          <p>
+            The Sip Spot je mobilný nápojový catering, ktorý prináša barový zážitok tam, kde ho najviac potrebujete – na svadbu, firemnú párty, oslavu narodenín alebo festival. Naše bary sú štýlové, naši barmani skúsení a drinky? Tie hovoria samy za seba. 
+          </p>
+          <p>
+            Záleží nám na detailoch – od úsmevu pri servírovaní až po dizajn pohárov. Sme flexibilní, profesionálni a robíme to s chuťou, pretože vieme, že dobrý drink vie urobiť veľký rozdiel. Našim cieľom nie je len nalievať, ale tvoriť atmosféru, ktorú budete cítiť ešte dlho po poslednom dúšku.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="eventy">
+      <h2>Naše eventy</h2>
+      <div class="event-slider">
+        <div class="event-slide active">
+          <img src="images/event12.jpg" alt="Event 12">
+        </div>
+        <div class="event-slide">
+          <img src="images/event14.jpg" alt="Event 14">
+        </div>
+        <div class="event-slide">
+          <img src="images/event13.jpg" alt="Event 13">
+        </div>
+        <div class="event-slide">
+          <img src="images/event15.jpg" alt="Event 15">
+        </div>
+        <div class="event-slide">
+          <img src="images/event5.jpg" alt="Event 5">
+        </div>
+        <div class="event-slide">
+          <img src="images/event6.jpg" alt="Event 6">
+        </div>
+        <div class="event-slide">
+          <img src="images/event7.jpg" alt="Event 7">
+        </div>
+        <div class="event-slide">
+          <img src="images/event8.jpg" alt="Event 8">
+        </div>
+        <div class="event-slide">
+          <img src="images/event9.jpg" alt="Event 9">
+        </div>
+        <div class="event-slide">
+          <img src="images/event10.jpg" alt="Event 10">
+        </div>
+        <div class="event-slide">
+          <img src="images/event11.jpg" alt="Event 11">
+        </div>
+      
+        <!-- Šípky -->
+        <button class="event-prev" onclick="prevEvent()">←</button>
+        <button class="event-next" onclick="nextEvent()">→</button>
+      </div>      
+    </section>
+
+    <section id="odporucania">
+      <h2>Odporúčania</h2>
+      <div class="slider">
+        <div class="slide active">
+          <p class="text">„Perfektný servis a výborné drinky. Boli ste highlight nášho večierka!“</p>
+          <p class="autor">— Anna K., marketing, CreativeCo</p>
+        </div>
+        <div class="slide">
+          <p class="text">„Profesionálny a zároveň priateľský prístup. Určite využijeme znovu.“</p>
+          <p class="autor">— Peter D., Event manager, Triexpo</p>
+        </div>
+        <div class="slide">
+          <p class="text">„Na našej svadbe ste vytvorili tú najlepšiu atmosféru. Ďakujeme!“</p>
+          <p class="autor">— Lucia a Ján, svadobný pár</p>
+        </div>
+      
+        <!-- Šípky -->
+        <button class="prev" onclick="prevSlide()">←</button>
+        <button class="next" onclick="nextSlide()">→</button>
+      </div>
+      
+    </section>    
+    
+    <section id="kontakt">
+      <h2>Kontaktujte nás</h2>
+    
+      <div class="kontakt-container">
+        <!-- Formulár -->
+        <form id="kontakt-form">
+          <label for="meno">Meno:</label>
+          <input type="text" id="meno" name="Meno" required>
+        
+          <label for="email">E-mail:</label>
+          <input type="email" id="email" name="Email" required>
+        
+          <label for="sprava">Správa:</label>
+          <textarea id="sprava" name="Správa" rows="5" required></textarea>
+        
+          <!-- GDPR súhlas (povinný) -->
+          <label>
+            <input type="checkbox" name="Súhlas s GDPR" id="gdpr" required>
+            Súhlasím so spracovaním osobných údajov (GDPR)
+          </label>
+        
+          <!-- Marketing súhlas (nepovinný) -->
+          <label>
+            <input type="checkbox" name="Marketingový súhlas">
+            Súhlasím s použitím údajov na marketingové účely
+          </label>
+        
+          <button type="submit">Odoslať</button>
+        </form>
+        
+        <div id="thank-you-msg" style="display: none; margin-top: 20px; color: lightgreen;">
+          Ďakujeme! Správa bola úspešne odoslaná.
+        </div>        
+    
+        <!-- Info -->
+        <div class="kontakt-info">
+          <p><i class="fas fa-phone"></i> +421 907 912 498</p>
+          <p><i class="fas fa-envelope"></i> <a href="mailto:info@thesipspot.sk">martin.sipspot@gmail.com</a></p>
+          <p><i class="fab fa-instagram"></i> <a href="https://www.instagram.com/sip.spotbar" target="_blank">@sip.spotbar</a></p>
+          <p><i class="fas fa-building"></i> IČO: 12345678</p>
+          <p><a href="#">Zásady ochrany osobných údajov (GDPR)</a></p>
+          <p><a href="#">Súhlas so spracovaním údajov na marketingové účely</a></p>
+        </div>
+      </div>
+    </section>
+    
+
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 The Sip Spot. Všetky práva vyhradené.</p>
+      <p>Vyrobené od Ajka ❤️</p>
+    </div>
+  </footer>  
+  
+  <script src="script.js"></script>  
+
+</body>
+</html>
