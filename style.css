@@ -389,11 +389,11 @@ footer {
 
 /* Pozície šípok mimo obsahu */
 .slider .prev {
-  left: -40px;
+  left: -30px;
 }
 
 .slider .next {
-  right: -40px;
+  right: -30px;
 }
 
 
