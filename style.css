@@ -26,8 +26,6 @@ header {
   transition: box-shadow 0.3s ease;
 }
 
-
-
 .logo {
   display: flex;
   align-items: center;
@@ -143,26 +141,6 @@ main {
   margin-bottom: 20px;
 }
 
-.galeria {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.galeria img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.galeria img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
-}
-
 /* Sekcia Odporúčania */
 #odporucania {
   padding-top: 60px;
@@ -226,45 +204,17 @@ main {
   justify-content: space-between;
 }
 
-form {
-  flex: 1 1 45%;
-  display: flex;
-  flex-direction: column;
-}
-
-form label {
-  margin-top: 10px;
-  margin-bottom: 5px;
-}
-
-form input,
-form textarea {
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  background-color: #111;
-  color: white;
-}
-
-form button {
-  margin-top: 15px;
-  padding: 12px 20px;
-  background-color: transparent;
-  color: white;
-  border: 2px solid white;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-form button:hover {
-  background-color: white;
-  color: black;
+.kontakt-only {
+  justify-content: center;
 }
 
 .kontakt-info {
   flex: 1 1 45%;
+}
+
+.kontakt-only .kontakt-info {
+  flex: 0 1 500px;
+  text-align: left;
 }
 
 .kontakt-info p {
@@ -278,6 +228,11 @@ form button:hover {
 
 .kontakt-info a:hover {
   color: #ccc;
+}
+
+.kontakt-info i {
+  margin-right: 10px;
+  color: white;
 }
 
 /* Pätička */
@@ -349,8 +304,20 @@ footer {
   nav ul li {
     margin: 0;
   }
-}
 
+  .cookie-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #accept-cookies {
+    width: 100%;
+  }
+
+  .kontakt-only .kontakt-info {
+    flex: 1 1 100%;
+  }
+}
 
 .slider {
   position: relative;
@@ -372,7 +339,7 @@ footer {
   display: block;
 }
 
-/* Upraviť šípky: POSUN MIMO box */
+/* Šípky pri referenciách */
 .slider .prev,
 .slider .next {
   position: absolute;
@@ -387,7 +354,6 @@ footer {
   z-index: 10;
 }
 
-/* Pozície šípok mimo obsahu */
 .slider .prev {
   left: -20px;
 }
@@ -396,7 +362,7 @@ footer {
   right: -20px;
 }
 
-
+/* Event slider */
 .event-slider {
   position: relative;
   max-width: 800px;
@@ -456,29 +422,43 @@ footer {
   right: -35px;
 }
 
-#thank-you-msg {
-  font-weight: bold;
-  font-size: 16px;
-  animation: fadein 0.5s ease-in-out;
+/* Cookies banner */
+#cookie-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background-color: #111;
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 16px 20px;
+  z-index: 3000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-@keyframes fadein {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.cookie-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
 
-form label {
-  margin-top: 10px;
-  margin-bottom: 5px;
-  display: block;
+.cookie-content p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
-form input[type="checkbox"] {
-  margin-right: 8px;
-  transform: scale(1.2);
+#accept-cookies {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
 }
 
-.kontakt-info i {
-  margin-right: 10px;
-  color: white;
+#accept-cookies:hover {
+  background-color: #ddd;
 }
