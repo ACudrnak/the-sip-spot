@@ -69,11 +69,16 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function openCookieBanner() {
-    if (cookieBanner) {
-      resetCheckboxes();
-      cookieBanner.style.display = "flex";
-    }
+  if (cookieBanner) {
+    const savedAnalytics = localStorage.getItem("cookiesAnalytics") === "true";
+    const savedMarketing = localStorage.getItem("cookiesMarketing") === "true";
+    const analytics = document.getElementById("checkbox-analytics");
+    const marketing = document.getElementById("checkbox-marketing");
+    if (analytics) analytics.checked = savedAnalytics;
+    if (marketing) marketing.checked = savedMarketing;
+    cookieBanner.style.display = "flex";
   }
+}
 
   // Prijať všetky
   const acceptAllBtn = document.getElementById("accept-cookies");
