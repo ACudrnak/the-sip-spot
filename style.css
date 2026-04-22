@@ -199,9 +199,8 @@ main {
 
 .kontakt-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .kontakt-only {
@@ -209,12 +208,17 @@ main {
 }
 
 .kontakt-info {
-  flex: 1 1 45%;
+  width: 100%;
+  max-width: 420px;
+  text-align: left;
+  margin: 0 auto;
 }
 
-.kontakt-only .kontakt-info {
-  flex: 0 1 500px;
-  text-align: left;
+.kontakt-info p {
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .kontakt-info p {
