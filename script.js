@@ -61,6 +61,20 @@ document.addEventListener("DOMContentLoaded", function () {
     cookieBanner.style.display = "none";
   }
 
+  function resetCheckboxes() {
+    const analytics = document.getElementById("checkbox-analytics");
+    const marketing = document.getElementById("checkbox-marketing");
+    if (analytics) analytics.checked = false;
+    if (marketing) marketing.checked = false;
+  }
+
+  function openCookieBanner() {
+    if (cookieBanner) {
+      resetCheckboxes();
+      cookieBanner.style.display = "flex";
+    }
+  }
+
   // Prijať všetky
   const acceptAllBtn = document.getElementById("accept-cookies");
   if (acceptAllBtn && cookieBanner) {
@@ -89,6 +103,18 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.setItem("cookiesAnalytics", analytics ? "true" : "false");
       localStorage.setItem("cookiesMarketing", marketing ? "true" : "false");
       cookieBanner.style.display = "none";
+    });
+  }
+
+  // Nastavenia cookies v pätičke — znovu otvorí banner
+  const cookieSettingsLink = document.getElementById("open-cookie-settings");
+  if (cookieSettingsLink) {
+    cookieSettingsLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      localStorage.removeItem("cookiesAccepted");
+      localStorage.removeItem("cookiesAnalytics");
+      localStorage.removeItem("cookiesMarketing");
+      openCookieBanner();
     });
   }
 });
