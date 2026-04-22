@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+
   /* Hamburger menu */
   window.toggleMenu = function () {
     const navLinks = document.getElementById("nav-links");
@@ -56,37 +57,35 @@ document.addEventListener("DOMContentLoaded", function () {
   /* Cookies */
   const cookieBanner = document.getElementById("cookie-banner");
 
-  // Skryť banner ak už bol súhlas udelený
-  if (cookieBanner && localStorage.getItem("cookiesAccepted")) {
-    cookieBanner.style.display = "none";
+  function applyCheckboxState(analytics, marketing) {
+    const analyticsBox = document.getElementById("checkbox-analytics");
+    const marketingBox = document.getElementById("checkbox-marketing");
+    if (analyticsBox) analyticsBox.checked = analytics;
+    if (marketingBox) marketingBox.checked = marketing;
   }
 
-  function resetCheckboxes() {
-    const analytics = document.getElementById("checkbox-analytics");
-    const marketing = document.getElementById("checkbox-marketing");
-    if (analytics) analytics.checked = false;
-    if (marketing) marketing.checked = false;
+  function getSavedCheckboxState() {
+    return {
+      analytics: localStorage.getItem("cookiesAnalytics") === "true",
+      marketing: localStorage.getItem("cookiesMarketing") === "true"
+    };
+  }
+
+  // Pri načítaní stránky — skryť banner ak už bol súhlas udelený
+  if (cookieBanner) {
+    if (localStorage.getItem("cookiesAccepted")) {
+      cookieBanner.style.display = "none";
+    } else {
+      applyCheckboxState(false, false);
+    }
   }
 
   function openCookieBanner() {
-  if (cookieBanner) {
-    const savedAnalytics = localStorage.getItem("cookiesAnalytics") === "true";
-    const savedMarketing = localStorage.getItem("cookiesMarketing") === "true";
-    const analytics = document.getElementById("checkbox-analytics");
-    const marketing = document.getElementById("checkbox-marketing");
-    if (analytics) analytics.checked = savedAnalytics;
-    if (marketing) marketing.checked = savedMarketing;
-    cookieBanner.style.display = "flex";
-  }
-}
-
-  // Prijať všetky
-  const acceptAllBtn = document.getElementById("accept-cookies");
-  if (acceptAllBtn && cookieBanner) {
-    acceptAllBtn.addEventListener("click", function () {
-      localStorage.setItem("cookiesAccepted", "all");
-      cookieBanner.style.display = "none";
-    });
+    if (cookieBanner) {
+      const saved = getSavedCheckboxState();
+      applyCheckboxState(saved.analytics, saved.marketing);
+      cookieBanner.style.display = "flex";
+    }
   }
 
   // Odmietnuť všetky
@@ -94,6 +93,8 @@ document.addEventListener("DOMContentLoaded", function () {
   if (rejectBtn && cookieBanner) {
     rejectBtn.addEventListener("click", function () {
       localStorage.setItem("cookiesAccepted", "rejected");
+      localStorage.setItem("cookiesAnalytics", "false");
+      localStorage.setItem("cookiesMarketing", "false");
       cookieBanner.style.display = "none";
     });
   }
@@ -104,6 +105,10 @@ document.addEventListener("DOMContentLoaded", function () {
     acceptSelectedBtn.addEventListener("click", function () {
       const analytics = document.getElementById("checkbox-analytics")?.checked || false;
       const marketing = document.getElementById("checkbox-marketing")?.checked || false;
+      if (!analytics && !marketing) {
+        alert("Prosím zaškrtnite aspoň jednu možnosť, alebo zvoľte \"Odmietnuť všetky\".");
+        return;
+      }
       localStorage.setItem("cookiesAccepted", "selected");
       localStorage.setItem("cookiesAnalytics", analytics ? "true" : "false");
       localStorage.setItem("cookiesMarketing", marketing ? "true" : "false");
@@ -111,15 +116,25 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Nastavenia cookies v pätičke — znovu otvorí banner
+  // Prijať všetky — zaškrtne checkboxy a uloží
+  const acceptAllBtn = document.getElementById("accept-cookies");
+  if (acceptAllBtn && cookieBanner) {
+    acceptAllBtn.addEventListener("click", function () {
+      applyCheckboxState(true, true);
+      localStorage.setItem("cookiesAccepted", "all");
+      localStorage.setItem("cookiesAnalytics", "true");
+      localStorage.setItem("cookiesMarketing", "true");
+      cookieBanner.style.display = "none";
+    });
+  }
+
+  // Nastavenia cookies v pätičke — znovu otvorí banner so uloženým stavom
   const cookieSettingsLink = document.getElementById("open-cookie-settings");
   if (cookieSettingsLink) {
     cookieSettingsLink.addEventListener("click", function (e) {
       e.preventDefault();
-      localStorage.removeItem("cookiesAccepted");
-      localStorage.removeItem("cookiesAnalytics");
-      localStorage.removeItem("cookiesMarketing");
       openCookieBanner();
     });
   }
+
 });
