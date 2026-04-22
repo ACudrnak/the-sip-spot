@@ -422,41 +422,44 @@ footer {
   right: -35px;
 }
 
-/* Cookies banner */
+/* Cookies modal */
 #cookie-banner {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  background-color: #111;
-  border: 1px solid white;
-  border-radius: 10px;
-  padding: 16px 20px;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 3000;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  padding: 20px;
 }
 
 .cookie-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
+  background-color: #111;
+  border: 1px solid white;
+  border-radius: 12px;
+  padding: 30px 24px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .cookie-content p {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.5;
+  margin: 0 0 20px 0;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 #accept-cookies {
   background-color: white;
   color: black;
   border: none;
-  padding: 10px 16px;
+  padding: 12px 20px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
+  min-width: 140px;
 }
 
 #accept-cookies:hover {
