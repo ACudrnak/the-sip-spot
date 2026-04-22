@@ -214,29 +214,30 @@ main {
   margin: 0 auto;
 }
 
-.kontakt-info p {
-  margin-bottom: 18px;
-  display: flex;
+.kontakt-info {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 14px 14px;
   align-items: center;
-  gap: 10px;
+  max-width: 320px;
+  margin: 0 auto;
 }
 
-.kontakt-info p {
-  margin-bottom: 10px;
+.kontakt-info i {
+  color: white;
+  font-size: 16px;
+  text-align: center;
 }
 
-.kontakt-info a {
+.kontakt-info a,
+.kontakt-info span {
   color: white;
   text-decoration: underline;
+  font-size: 15px;
 }
 
 .kontakt-info a:hover {
   color: #ccc;
-}
-
-.kontakt-info i {
-  margin-right: 10px;
-  color: white;
 }
 
 /* Pätička */
@@ -440,21 +441,22 @@ footer {
 }
 
 .cookie-content {
-  background-color: #fff;
-  color: #000;
+  background-color: #111;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 12px;
   padding: 30px 28px;
   max-width: 560px;
   width: 100%;
   text-align: left;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
 }
 
 .cookie-content h3 {
   margin: 0 0 18px 0;
   font-size: 17px;
   font-weight: 600;
-  color: #000;
+  color: #fff;
   text-decoration: underline;
 }
 
@@ -462,22 +464,25 @@ footer {
   margin-bottom: 14px;
   padding: 10px 12px;
   border-radius: 6px;
-  background-color: #f5f5f5;
+  background-color: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .cookie-type.highlighted {
-  background-color: #fff3b0;
+  background-color: #1e1c0e;
+  border: 1px solid rgba(255, 220, 50, 0.2);
 }
 
 .cookie-type p {
   margin: 0;
   font-size: 14px;
   line-height: 1.55;
-  color: #000;
+  color: #ccc;
 }
 
 .cookie-type em {
   font-style: italic;
+  color: #fff;
 }
 
 /* Checkbox labely */
@@ -489,29 +494,29 @@ footer {
   font-weight: 600;
   margin-bottom: 6px;
   cursor: pointer;
-  color: #000;
+  color: #fff;
 }
 
 .cookie-checkbox-label input[type="checkbox"] {
   width: 16px;
   height: 16px;
   cursor: pointer;
-  accent-color: #000;
+  accent-color: #fff;
 }
 
 .cookie-link-text {
   font-size: 13px;
   margin: 16px 0 20px 0;
-  color: #000;
+  color: #aaa;
 }
 
 .cookie-link-text a {
-  color: #000;
+  color: #fff;
   text-decoration: underline;
 }
 
 .cookie-link-text a:hover {
-  color: #444;
+  color: #ccc;
 }
 
 /* Tlačidlá */
@@ -533,35 +538,35 @@ footer {
 }
 
 #reject-cookies {
-  background-color: #fff;
-  color: #000;
-  border: 1px solid #000;
-  text-decoration: underline;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 #reject-cookies:hover {
-  background-color: #f0f0f0;
+  border-color: #fff;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 #accept-selected {
-  background-color: #fff;
-  color: #000;
-  border: 1px solid #000;
-  text-decoration: underline;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 #accept-selected:hover {
-  background-color: #f0f0f0;
+  border-color: #fff;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 #accept-cookies {
-  background-color: #fff3b0;
+  background-color: #fff;
   color: #000;
-  border: 1px solid #000;
+  border: 1px solid #fff;
   font-weight: 700;
-  text-decoration: underline;
 }
 
 #accept-cookies:hover {
-  background-color: #ffe566;
+  background-color: #ddd;
+  border-color: #ddd;
 }
