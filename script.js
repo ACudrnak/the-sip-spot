@@ -128,6 +128,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  const closeBtn = document.getElementById("close-cookie-banner");
+  if (closeBtn && cookieBanner) {
+    closeBtn.addEventListener("click", function () {
+      cookieBanner.style.display = "none";
+    });
+  }
+
   // Nastavenia cookies v pätičke — znovu otvorí banner so uloženým stavom
   const cookieSettingsLink = document.getElementById("open-cookie-settings");
   if (cookieSettingsLink) {
