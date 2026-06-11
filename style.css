@@ -545,19 +545,22 @@ footer {
 
 #close-cookie-banner {
   position: absolute;
-  top: 14px;
-  right: 16px;
+  top: 12px;
+  right: 14px;
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 24px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 22px;
   line-height: 1;
   cursor: pointer;
-  padding: 0;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: color 0.2s, background-color 0.2s;
 }
 
 #close-cookie-banner:hover {
   color: #fff;
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 #reject-cookies {
