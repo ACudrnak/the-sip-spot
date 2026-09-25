@@ -1,22 +1,42 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+  /* Header scroll state */
+  const header = document.getElementById("site-header");
+  if (header) {
+    window.addEventListener("scroll", function () {
+      header.classList.toggle("scrolled", window.scrollY > 20);
+    }, { passive: true });
+  }
+
   /* Hamburger menu */
   window.toggleMenu = function () {
     const navLinks = document.getElementById("nav-links");
+    const toggle = document.querySelector(".nav-toggle");
     if (navLinks) {
-      navLinks.classList.toggle("show");
+      const isOpen = navLinks.classList.toggle("show");
+      if (toggle) toggle.setAttribute("aria-expanded", isOpen);
     }
   };
 
-  /* Referencie */
+  // Close menu on nav link click (mobile)
+  document.querySelectorAll("#nav-links a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      const navLinks = document.getElementById("nav-links");
+      const toggle = document.querySelector(".nav-toggle");
+      if (navLinks) {
+        navLinks.classList.remove("show");
+        if (toggle) toggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+
+  /* Referencie slider */
   let currentSlide = 0;
   const slides = document.querySelectorAll(".slide");
 
   function showSlide(index) {
     if (!slides.length) return;
-    slides.forEach((slide, i) => {
-      slide.classList.toggle("active", i === index);
-    });
+    slides.forEach((slide, i) => slide.classList.toggle("active", i === index));
   }
 
   window.nextSlide = function () {
@@ -31,15 +51,18 @@ document.addEventListener("DOMContentLoaded", function () {
     showSlide(currentSlide);
   };
 
-  /* Eventy */
+  /* Event slider */
   let currentEvent = 0;
   const eventSlides = document.querySelectorAll(".event-slide");
+  const eventCurrent = document.getElementById("event-current");
+  const eventTotal = document.getElementById("event-total");
+
+  if (eventTotal) eventTotal.textContent = eventSlides.length;
 
   function showEvent(index) {
     if (!eventSlides.length) return;
-    eventSlides.forEach((slide, i) => {
-      slide.classList.toggle("active", i === index);
-    });
+    eventSlides.forEach((slide, i) => slide.classList.toggle("active", i === index));
+    if (eventCurrent) eventCurrent.textContent = index + 1;
   }
 
   window.nextEvent = function () {
@@ -71,7 +94,6 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   }
 
-  // Pri načítaní stránky — skryť banner ak už bol súhlas udelený
   if (cookieBanner) {
     if (localStorage.getItem("cookiesAccepted")) {
       cookieBanner.style.display = "none";
@@ -88,7 +110,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Odmietnuť všetky
   const rejectBtn = document.getElementById("reject-cookies");
   if (rejectBtn && cookieBanner) {
     rejectBtn.addEventListener("click", function () {
@@ -99,7 +120,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Prijať vybrané
   const acceptSelectedBtn = document.getElementById("accept-selected");
   if (acceptSelectedBtn && cookieBanner) {
     acceptSelectedBtn.addEventListener("click", function () {
@@ -116,7 +136,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Prijať všetky — zaškrtne checkboxy a uloží
   const acceptAllBtn = document.getElementById("accept-cookies");
   if (acceptAllBtn && cookieBanner) {
     acceptAllBtn.addEventListener("click", function () {
@@ -128,14 +147,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  const closeBtn = document.getElementById("close-cookie-banner");
-  if (closeBtn && cookieBanner) {
-    closeBtn.addEventListener("click", function () {
-      cookieBanner.style.display = "none";
-    });
-  }
-
-  // Nastavenia cookies v pätičke — znovu otvorí banner so uloženým stavom
   const cookieSettingsLink = document.getElementById("open-cookie-settings");
   if (cookieSettingsLink) {
     cookieSettingsLink.addEventListener("click", function (e) {

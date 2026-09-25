@@ -3,169 +3,223 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Sip Spot</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>Sip Spot — Mobile Bar Catering</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="icon" type="image/jpeg" href="images/logo.jpg">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- HLAVIČKA -->
-  <header>
-    <div class="logo">
-      <img src="images/logo.jpg" alt="The Sip Spot logo">
-    </div>
-
-    <nav>
-      <button class="hamburger" onclick="toggleMenu()">☰</button>
-      <ul id="nav-links">
-        <li><a href="#">Domov</a></li>
+  <!-- HEADER -->
+  <header id="site-header">
+    <a href="#" class="header-logo" aria-label="Sip Spot">
+      <svg viewBox="0 0 120 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <text x="0" y="36" font-family="Cormorant Garamond, serif" font-size="38" font-weight="300" letter-spacing="4" fill="currentColor">SIP SPOT</text>
+      </svg>
+    </a>
+    <nav aria-label="Hlavná navigácia">
+      <button class="nav-toggle" onclick="toggleMenu()" aria-label="Otvoriť menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul id="nav-links" role="list">
         <li><a href="#onas">O nás</a></li>
         <li><a href="#eventy">Eventy</a></li>
         <li><a href="#odporucania">Referencie</a></li>
-        <li><a href="#kontakt">Kontakt</a></li>
+        <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- HLAVNÝ OBSAH -->
   <main>
-    <h2>Vitajte!</h2>
-    <p>
-      Organizujeme jedinečný nápojový catering na mieru – nápoje, servis a atmosféra presne podľa vašich predstáv.
-      Či už plánujete svadbu, firemný večierok alebo narodeninovú párty, prinesieme vám profesionálny bar kamkoľvek.
-      Naším cieľom nie je len nalievať drinky, ale vytvoriť zážitok, na ktorý vaši hostia nezabudnú.
-      The Sip Spot je mladý, svieži a vždy pripravený spraviť z vášho eventu výnimočnú udalosť.
-    </p>
 
-    <section id="onas">
-      <div class="onas-container">
-        <div class="onas-image">
-          <img src="images/o-nas.jpg" alt="Náš tím pri práci">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="hero-kicker">Mobile bar catering · Bratislava</p>
+        <h1 class="hero-headline">
+          Profesionálny bar<br>
+          <em>kamkoľvek.</em>
+        </h1>
+        <p class="hero-body">
+          Nápoje, servis a atmosféra presne podľa vašich predstáv — na svadbu, firemný večierok alebo festival.
+        </p>
+        <a href="#kontakt" class="btn-primary">Nezáväzná cenová ponuka</a>
+      </div>
+      <div class="hero-emblem" aria-hidden="true">
+        <svg viewBox="0 0 200 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Stylized SS logo mark -->
+          <line x1="100" y1="10" x2="100" y2="310" stroke="currentColor" stroke-width="2.5"/>
+          <circle cx="100" cy="20" r="10" fill="currentColor"/>
+          <path d="M100 60 Q60 80 60 110 Q60 140 100 150 Q140 160 140 190 Q140 220 100 230" stroke="currentColor" stroke-width="14" fill="none" stroke-linecap="round"/>
+          <path d="M100 150 Q60 160 60 190 Q60 220 100 240 Q140 250 140 280 Q140 295 100 300" stroke="currentColor" stroke-width="14" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- O NÁS -->
+    <section id="onas" class="section-onas">
+      <div class="onas-layout">
+        <div class="onas-image-wrap">
+          <img src="images/o-nas.jpg" alt="Náš tím pri práci" loading="lazy">
         </div>
-        <div class="onas-text">
-          <h2>O nás</h2>
+        <div class="onas-content">
+          <h2>O&nbsp;nás</h2>
           <p>
-            The Sip Spot je mobilný nápojový catering, ktorý prináša barový zážitok tam, kde ho najviac potrebujete – na svadbu,
-            firemnú párty, oslavu narodenín alebo festival. Naše bary sú štýlové, naši barmani skúsení a drinky? Tie hovoria samy za seba.
+            Sip Spot je mobilný nápojový catering, ktorý prináša barový zážitok tam, kde ho najviac potrebujete — na svadbu, firemnú párty, oslavu narodenín alebo festival.
           </p>
           <p>
-            Záleží nám na detailoch – od úsmevu pri servírovaní až po dizajn pohárov. Sme flexibilní, profesionálni a robíme to s chuťou,
-            pretože vieme, že dobrý drink vie urobiť veľký rozdiel. Našim cieľom nie je len nalievať, ale tvoriť atmosféru,
-            ktorú budete cítiť ešte dlho po poslednom dúšku.
+            Záleží nám na detailoch — od úsmevu pri servírovaní až po dizajn pohárov. Sme flexibilní, profesionálni a robíme to s chuťou, pretože vieme, že dobrý drink vie urobiť veľký rozdiel.
           </p>
+          <div class="onas-stats">
+            <div class="stat">
+              <span class="stat-num">100%</span>
+              <span class="stat-label">na mieru</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">SK</span>
+              <span class="stat-label">po celom Slovensku</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">∞</span>
+              <span class="stat-label">typov eventov</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="eventy">
-      <h2>Naše eventy</h2>
-      <div class="event-slider">
-        <div class="event-slide active">
-          <img src="images/event14.jpg" alt="Event 14">
+    <!-- EVENTY -->
+    <section id="eventy" class="section-eventy">
+      <div class="section-header">
+        <h2>Naše eventy</h2>
+        <p>Každý event je iný. Každý bar je na mieru.</p>
+      </div>
+      <div class="event-slider" role="region" aria-label="Galéria eventov">
+        <div class="event-slide active"><img src="images/event14.jpg" alt="Event"></div>
+        <div class="event-slide"><img src="images/event12.jpg" alt="Event"></div>
+        <div class="event-slide"><img src="images/event13.jpg" alt="Event"></div>
+        <div class="event-slide"><img src="images/event15.jpg" alt="Event"></div>
+        <div class="event-slide"><img src="images/event5.jpg" alt="Event"></div>
+        <div class="event-slide"><img src="images/event6.jpg" alt="Event"></div>
+        <div class="event-slide"><img src="images/event7.jpg" alt="Event"></div>
+        <div class="event-slide"><img src="images/event8.jpg" alt="Event"></div>
+        <div class="event-slide"><img src="images/event9.jpg" alt="Event"></div>
+        <div class="event-slide"><img src="images/event10.jpg" alt="Event"></div>
+        <div class="event-slide"><img src="images/event11.jpg" alt="Event"></div>
+        <div class="event-controls">
+          <button class="event-prev" onclick="prevEvent()" aria-label="Predchádzajúci">←</button>
+          <div class="event-counter">
+            <span id="event-current">1</span> / <span id="event-total">11</span>
+          </div>
+          <button class="event-next" onclick="nextEvent()" aria-label="Ďalší">→</button>
         </div>
-        <div class="event-slide">
-          <img src="images/event12.jpg" alt="Event 12">
-        </div>
-        <div class="event-slide">
-          <img src="images/event13.jpg" alt="Event 13">
-        </div>
-        <div class="event-slide">
-          <img src="images/event15.jpg" alt="Event 15">
-        </div>
-        <div class="event-slide">
-          <img src="images/event5.jpg" alt="Event 5">
-        </div>
-        <div class="event-slide">
-          <img src="images/event6.jpg" alt="Event 6">
-        </div>
-        <div class="event-slide">
-          <img src="images/event7.jpg" alt="Event 7">
-        </div>
-        <div class="event-slide">
-          <img src="images/event8.jpg" alt="Event 8">
-        </div>
-        <div class="event-slide">
-          <img src="images/event9.jpg" alt="Event 9">
-        </div>
-        <div class="event-slide">
-          <img src="images/event10.jpg" alt="Event 10">
-        </div>
-        <div class="event-slide">
-          <img src="images/event11.jpg" alt="Event 11">
-        </div>
-
-        <button class="event-prev" onclick="prevEvent()">←</button>
-        <button class="event-next" onclick="nextEvent()">→</button>
       </div>
     </section>
 
-    <section id="odporucania">
-      <h2>Odporúčania</h2>
-      <div class="slider">
+    <!-- REFERENCIE -->
+    <section id="odporucania" class="section-referencie">
+      <div class="section-header section-header--light">
+        <h2>Čo hovoria klienti</h2>
+      </div>
+      <div class="slider" role="region" aria-label="Referencie klientov">
         <div class="slide active">
-          <p class="text">„Perfektný servis a výborné drinky. Boli ste highlight nášho večierka!"</p>
-          <p class="autor">— Anna K., marketing, CreativeCo</p>
+          <blockquote>
+            <p>„Perfektný servis a výborné drinky. Boli ste highlight nášho večierka!"</p>
+            <cite>— Anna K., marketing, CreativeCo</cite>
+          </blockquote>
         </div>
         <div class="slide">
-          <p class="text">„Profesionálny a zároveň priateľský prístup. Určite využijeme znovu."</p>
-          <p class="autor">— Peter D., Event manager, Triexpo</p>
+          <blockquote>
+            <p>„Profesionálny a zároveň priateľský prístup. Určite využijeme znovu."</p>
+            <cite>— Peter D., Event manager, Triexpo</cite>
+          </blockquote>
         </div>
         <div class="slide">
-          <p class="text">„Na našej svadbe ste vytvorili tú najlepšiu atmosféru. Ďakujeme!"</p>
-          <p class="autor">— Lucia a Ján, svadobný pár</p>
+          <blockquote>
+            <p>„Na našej svadbe ste vytvorili tú najlepšiu atmosféru. Ďakujeme!"</p>
+            <cite>— Lucia a Ján, svadobný pár</cite>
+          </blockquote>
         </div>
-
-        <button class="prev" onclick="prevSlide()">←</button>
-        <button class="next" onclick="nextSlide()">→</button>
+        <div class="slider-controls">
+          <button class="prev" onclick="prevSlide()" aria-label="Predchádzajúca referencia">←</button>
+          <button class="next" onclick="nextSlide()" aria-label="Ďalšia referencia">→</button>
+        </div>
       </div>
     </section>
 
-    <section id="kontakt">
-      <h2>Kontaktujte nás</h2>
-
-      <div class="kontakt-container kontakt-only">
-        <div class="kontakt-info">
-          <i class="fas fa-phone"></i><a href="tel:+421907912498">+421 907 912 498</a>
-          <i class="fas fa-envelope"></i><a href="mailto:martin.sipspot@gmail.com">martin.sipspot@gmail.com</a>
-          <i class="fab fa-instagram"></i><a href="https://www.instagram.com/sip.spotbar" target="_blank">@sip.spotbar</a>
-          <i class="fas fa-building"></i><span>IČO: 55136982</span>
-          <i class="fas fa-map-marker-alt"></i><span>Martin Čudrnák Peller, Plynárenská 19566/8, 821 09 Bratislava-Ružinov</span>
+    <!-- KONTAKT -->
+    <section id="kontakt" class="section-kontakt">
+      <div class="kontakt-layout">
+        <div class="kontakt-heading">
+          <h2>Porozprávajme<br><em>sa.</em></h2>
+          <p>Napíšte nám alebo zavolajte — radi pripravíme ponuku pre váš event.</p>
+        </div>
+        <div class="kontakt-details">
+          <a href="tel:+421907912498" class="kontakt-item">
+            <i class="fas fa-phone" aria-hidden="true"></i>
+            <span>+421 907 912 498</span>
+          </a>
+          <a href="mailto:martin.sipspot@gmail.com" class="kontakt-item">
+            <i class="fas fa-envelope" aria-hidden="true"></i>
+            <span>martin.sipspot@gmail.com</span>
+          </a>
+          <a href="https://www.instagram.com/sip.spotbar" target="_blank" rel="noopener" class="kontakt-item">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+            <span>@sip.spotbar</span>
+          </a>
+          <div class="kontakt-item kontakt-item--text">
+            <i class="fas fa-building" aria-hidden="true"></i>
+            <span>IČO: 55136982</span>
+          </div>
+          <div class="kontakt-item kontakt-item--text">
+            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+            <span>Martin Čudrnák Peller<br>Plynárenská 19566/8<br>821 09 Bratislava-Ružinov</span>
+          </div>
         </div>
       </div>
     </section>
+
   </main>
 
   <footer>
-    <div class="footer-content">
-      <p>&copy; 2025 The Sip Spot. Všetky práva vyhradené.</p>
-      <p>Designed &amp; developed with care.</p>
-      <p><a href="#" id="open-cookie-settings" class="footer-cookie-link">Nastavenia cookies</a></p>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">SIP SPOT</span>
+        <p>Mobile bar catering · Bratislava</p>
+      </div>
+      <div class="footer-links">
+        <a href="zasady-cookies.html">Zásady cookies</a>
+        <a href="#" id="open-cookie-settings">Nastavenia cookies</a>
+      </div>
+      <div class="footer-copy">
+        <p>© 2025 Sip Spot. Všetky práva vyhradené.</p>
+        <p>Vyrobené od Ajka ❤️</p>
+      </div>
     </div>
   </footer>
 
   <!-- COOKIE BANNER -->
-  <div id="cookie-banner">
+  <div id="cookie-banner" role="dialog" aria-label="Nastavenia cookies" aria-modal="true">
     <div class="cookie-content">
-      <button id="close-cookie-banner" aria-label="Zavrieť">✕</button>
       <h3>Aké cookies na webe používame?</h3>
 
       <div class="cookie-type">
         <p><em>Technické cookies</em> – zabezpečujú, aby <strong>správne fungoval náš web</strong>, aby ste mohli použiť <strong>vyhľadávanie</strong> na našom webe, a aby fungovali všetky ostatné funkcionality, aby bol pre vás náš web užitočný.</p>
       </div>
 
-      <div class="cookie-type highlighted">
+      <div class="cookie-type cookie-type--optional">
         <label class="cookie-checkbox-label">
           <input type="checkbox" id="checkbox-analytics">
+          <span class="checkbox-custom"></span>
           <em>Analytické cookies</em>
         </label>
         <p>Pomáhajú nám analyzovať návštevnosť nášho webu a interakciu návštevníkov s jej obsahom a tak <strong>zlepšovať našu stránku</strong>, aby ste z nej mali čo najväčší zážitok.</p>
       </div>
 
-      <div class="cookie-type highlighted">
+      <div class="cookie-type cookie-type--optional">
         <label class="cookie-checkbox-label">
           <input type="checkbox" id="checkbox-marketing">
+          <span class="checkbox-custom"></span>
           <em>Marketingové cookies</em>
         </label>
         <p>Tieto cookies používame, aby sme vám mohli zobrazovať <strong>rôzny zaujímavý obsah</strong>, ktorý by vás mohol zaujímať.</p>
