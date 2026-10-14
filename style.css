@@ -233,9 +233,10 @@ nav a:hover { color: var(--green); }
 }
 
 .hero-emblem {
-  opacity: 0.15;
-  width: clamp(60px, 8vw, 100px);
+  opacity: 0.2;
+  width: clamp(32px, 4vw, 52px);
   align-self: center;
+  flex-shrink: 0;
 }
 
 .hero-emblem img {
