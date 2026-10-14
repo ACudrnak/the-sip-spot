@@ -120,9 +120,9 @@ em { font-style: italic; }
 .logo-img--green { display: block; }
 
 .footer-logo-img {
-  height: 20px;
+  height: 36px;
   width: auto;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .footer-logo { display: none; }
@@ -806,12 +806,6 @@ footer {
   .kontakt-layout {
     grid-template-columns: 1fr;
     gap: 3rem;
-  }
-
-  .footer-inner {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 1.5rem;
   }
 
   .footer-copy { text-align: center; }
