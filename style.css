@@ -233,8 +233,7 @@ nav a:hover { color: var(--green); }
 }
 
 .hero-emblem {
-  opacity: 0.2;
-  width: clamp(32px, 4vw, 52px);
+  width: clamp(50px, 7vw, 90px);
   align-self: center;
   flex-shrink: 0;
 }
@@ -397,7 +396,7 @@ nav a:hover { color: var(--green); }
 /* ============ REFERENCIE ============ */
 .section-referencie {
   padding: var(--section-gap) var(--pad-x);
-  background-color: var(--white);
+  background-color: var(--cream);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
