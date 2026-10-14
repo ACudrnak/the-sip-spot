@@ -425,6 +425,95 @@ blockquote cite {
   color: var(--cream);
 }
 
+/* ============ DOWNLOAD ============ */
+.section-download {
+  background-color: var(--green-dark);
+  padding: var(--section-gap) var(--pad-x);
+}
+
+.download-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+
+.download-heading h2 {
+  color: var(--cream);
+  margin-bottom: 1rem;
+}
+
+.download-heading .hero-kicker {
+  color: rgba(232,228,217,.5);
+}
+
+.download-heading p {
+  color: rgba(232,228,217,.6);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  max-width: 42ch;
+}
+
+.download-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.download-btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(232,228,217,.2);
+  border-radius: 2px;
+  color: var(--cream);
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.download-btn:hover {
+  background-color: rgba(232,228,217,.06);
+  border-color: rgba(232,228,217,.4);
+}
+
+.download-lang {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--cream);
+  min-width: 40px;
+  opacity: 0.9;
+}
+
+.download-label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.download-label span {
+  font-size: 0.75rem;
+  color: rgba(232,228,217,.45);
+  font-weight: 300;
+  letter-spacing: 0.03em;
+}
+
+.download-btn .fa-download {
+  color: rgba(232,228,217,.35);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .download-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ============ KONTAKT ============ */
 .section-kontakt {
   padding: var(--section-gap) var(--pad-x);
