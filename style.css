@@ -4,19 +4,58 @@
    Type: Cormorant Garamond (display) + Inter (body)
    ============================================ */
 
+@font-face {
+  font-family: 'Larosa';
+  src: url('fonts/LarosaLight.ttf') format('truetype');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Larosa';
+  src: url('fonts/LarosaRegular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Larosa';
+  src: url('fonts/LarosaMedium.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Larosa';
+  src: url('fonts/LarosaBold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Relicta';
+  src: url('fonts/Relicta-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Relicta';
+  src: url('fonts/Relicta-UltraboldItalic.otf') format('opentype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
-  --green:       #2D6A4F;
-  --green-dark:  #1A3D2B;
-  --green-mid:   #3A7D5E;
+  --green:       #005F4E;
+  --green-dark:  #005F4E;
+  --green-mid:   #2D6A4F;
   --cream:       #E8E4D9;
   --cream-dark:  #D8D3C5;
   --white:       #F5F3EE;
   --ink:         #1A1A18;
   --ink-soft:    #4A4A44;
-  --border:      rgba(45, 106, 79, 0.15);
+  --border:      rgba(0, 95, 78, 0.15);
 
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body:    'Inter', system-ui, sans-serif;
+  --font-display: 'Larosa', Georgia, serif;
+  --font-body:    'Relicta', system-ui, sans-serif;
 
   --max-w: 1140px;
   --pad-x: clamp(1.25rem, 5vw, 4rem);
@@ -80,13 +119,23 @@ em { font-style: italic; }
 .header-logo {
   display: flex;
   align-items: center;
-  color: var(--green-dark);
 }
 
-.header-logo svg {
-  height: 28px;
+.logo-img {
+  height: 22px;
   width: auto;
 }
+
+.logo-img--beige { display: none; }
+.logo-img--green { display: block; }
+
+.footer-logo-img {
+  height: 20px;
+  width: auto;
+  opacity: 0.85;
+}
+
+.footer-logo { display: none; }
 
 nav ul {
   display: flex;
