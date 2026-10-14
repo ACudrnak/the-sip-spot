@@ -233,13 +233,12 @@ nav a:hover { color: var(--green); }
 }
 
 .hero-emblem {
-  color: var(--green);
-  opacity: 0.12;
-  width: clamp(80px, 12vw, 160px);
+  opacity: 0.15;
+  width: clamp(60px, 8vw, 100px);
   align-self: center;
 }
 
-.hero-emblem svg {
+.hero-emblem img {
   width: 100%;
   height: auto;
 }
