@@ -5,41 +5,26 @@
    ============================================ */
 
 @font-face {
-  font-family: 'Larosa';
-  src: url('fonts/LarosaLight.ttf') format('truetype');
-  font-weight: 300;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Larosa';
-  src: url('fonts/LarosaRegular.ttf') format('truetype');
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Larosa';
-  src: url('fonts/LarosaMedium.ttf') format('truetype');
-  font-weight: 500;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Larosa';
-  src: url('fonts/LarosaBold.ttf') format('truetype');
-  font-weight: 700;
-  font-display: swap;
-}
-@font-face {
   font-family: 'Relicta';
-  src: url('fonts/Relicta-Light.otf') format('opentype');
-  font-weight: 300;
+  src: url('fonts/Relicta-Light.woff2') format('woff2'),
+       url('fonts/Relicta-Light.otf') format('opentype');
+  font-weight: 100 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Relicta';
-  src: url('fonts/Relicta-UltraboldItalic.otf') format('opentype');
-  font-weight: 800;
+  src: url('fonts/Relicta-UltraboldItalic.woff2') format('woff2'),
+       url('fonts/Relicta-UltraboldItalic.otf') format('opentype');
+  font-weight: 700 900;
   font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Larosa';
+  src: url('fonts/LarosaRegular.woff2') format('woff2'),
+       url('fonts/LarosaRegular.ttf') format('truetype');
+  font-weight: 400;
   font-display: swap;
 }
 
@@ -54,8 +39,8 @@
   --ink-soft:    #4A4A44;
   --border:      rgba(0, 95, 78, 0.15);
 
-  --font-display: 'Relicta', Georgia, sans-serif;
-  --font-body:    'Relicta', system-ui, sans-serif;
+  --font-display: 'Relicta', 'Helvetica Neue', sans-serif;
+  --font-body:    'Relicta', 'Helvetica Neue', sans-serif;
 
   --max-w: 1140px;
   --pad-x: clamp(1.25rem, 5vw, 4rem);
