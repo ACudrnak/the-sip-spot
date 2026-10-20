@@ -260,3 +260,172 @@ a.card--green:hover { color: var(--cream); }
 .cookie__box p { font-size: 0.92rem; color: var(--ink-soft); }
 .cookie__opts { display: grid; gap: 0.5rem; }
 .cookie .btn { min-height: 44px; padding: 0.6rem 1.1rem; font-size: 0.95rem; }
+
+/* ============================================
+   BLOG 2.0 — akcenty, varianty úvodu, bloky
+   ============================================ */
+
+[data-accent="zelena"]     { --a-bg: #005F4E; --a-fg: #E3D9C5; --a-strong: #F5F3EE; --a-soft: #E9E2D2; --a-ink: #005F4E; }
+[data-accent="bezova"]     { --a-bg: #E3D9C5; --a-fg: #4A4A44; --a-strong: #1A1A18; --a-soft: #EFE8DA; --a-ink: #005F4E; }
+[data-accent="tmava"]      { --a-bg: #1F2A26; --a-fg: #D9D2C1; --a-strong: #F5F3EE; --a-soft: #ECE6D8; --a-ink: #8A4B12; }
+[data-accent="grapefruit"] { --a-bg: #F7D9CF; --a-fg: #5A3A33; --a-strong: #2A1410; --a-soft: #FBEAE4; --a-ink: #A3352B; }
+
+.article .kicker { color: var(--a-ink); }
+
+/* Úvod: split */
+.ahero { padding: clamp(2rem, 5vw, 4rem) 0 0; }
+.ahero__grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
+.ahero__text { display: flex; flex-direction: column; gap: 1.1rem; }
+.ahero__text h1 em, .ahero h1 .em { color: var(--a-ink); }
+.ahero__img { border-radius: 24px; overflow: hidden; aspect-ratio: 4 / 3; background: var(--a-bg); }
+.ahero__img img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 820px) { .ahero__grid { grid-template-columns: 1fr; } }
+
+/* Úvod: fullbleed */
+.ahero--fullbleed { padding: 0; background: var(--a-bg); color: var(--a-fg); }
+.ahero--fullbleed .ahero__grid { grid-template-columns: 1fr 1fr; min-height: 520px; padding: clamp(2.5rem, 6vw, 5rem) 0; }
+.ahero--fullbleed h1 { color: var(--a-strong); }
+.ahero--fullbleed .kicker, .ahero--fullbleed a { color: var(--a-fg); }
+.ahero--fullbleed .lead, .ahero--fullbleed .post-meta { color: var(--a-fg); }
+.ahero--fullbleed .ahero__img { aspect-ratio: auto; height: 100%; min-height: 360px; background: transparent; }
+@media (max-width: 820px) { .ahero--fullbleed .ahero__grid { grid-template-columns: 1fr; } }
+
+/* Úvod: typo */
+.ahero--typo { padding: clamp(3rem, 7vw, 6rem) 0 clamp(2rem, 4vw, 3rem); background: var(--a-bg); color: var(--a-fg); text-align: center; }
+.ahero--typo .ahero__text { align-items: center; max-width: 900px; margin: 0 auto; }
+.ahero--typo h1 { color: var(--a-strong); font-size: clamp(2.8rem, 8vw, 6rem); }
+.ahero--typo .kicker, .ahero--typo a, .ahero--typo .lead, .ahero--typo .post-meta { color: var(--a-fg); }
+.ahero--typo .ahero__badge { width: 140px; height: 105px; border-radius: 18px; overflow: hidden; }
+.ahero--typo .ahero__badge img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Rýchly prehľad podľa typu článku */
+.glance { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.glance span { font-size: 0.9rem; padding: 0.35rem 0.85rem; border-radius: 999px; border: 1px solid currentColor; }
+
+/* Telo článku */
+.article-body { max-width: 960px; margin: 0 auto; padding: clamp(2.5rem, 5vw, 3.5rem) var(--pad-x) var(--section); display: flex; flex-direction: column; gap: 2.5rem; }
+.article-body > * { width: 100%; max-width: 720px; margin-left: auto; margin-right: auto; }
+.article-body > .b-wide, .article-body > .b-recipe, .article-body > .b-rating, .article-body > .b-product, .article-body > .b-podcast { max-width: 960px; }
+.b-text.prose { margin: 0 auto; }
+.b-title { font-size: clamp(1.8rem, 3.5vw, 2.5rem); margin-bottom: 1.25rem; }
+.b-label { display: block; font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--a-ink); margin-bottom: 0.4rem; }
+
+/* Recept */
+.b-recipe { background: var(--card); border: 1px solid #E5DDCC; border-radius: 24px; padding: clamp(1.5rem, 4vw, 2.75rem); display: flex; flex-direction: column; gap: 1.75rem; border-top: 8px solid var(--a-bg); }
+.b-recipe h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-top: 0.4rem; }
+.b-recipe h3 { font-family: var(--font-body); font-weight: 700; font-size: 1.1rem; margin-bottom: 0.75rem; }
+.b-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+.b-chip { font-size: 0.9rem; padding: 0.35rem 0.85rem; border-radius: 999px; background: var(--a-soft); color: var(--ink); }
+.b-recipe__body { display: grid; grid-template-columns: 1fr 1.3fr; gap: 2rem; }
+.b-recipe__ing { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.15rem; }
+.b-recipe__ing li { padding: 0.55rem 0; border-bottom: 1px dashed var(--line); }
+.b-recipe__steps { margin: 0; padding: 0; list-style: none; counter-reset: rs; display: grid; gap: 0.9rem; }
+.b-recipe__steps li { counter-increment: rs; display: grid; grid-template-columns: 2.2rem 1fr; gap: 0.5rem; }
+.b-recipe__steps li::before { content: counter(rs); width: 2rem; height: 2rem; border-radius: 50%; background: var(--a-bg); color: var(--a-strong); display: grid; place-items: center; font-weight: 700; font-size: 0.9rem; }
+.b-recipe__variants { display: grid; gap: 0.75rem; }
+.b-recipe__variants p { background: var(--a-soft); border-radius: 14px; padding: 1rem 1.25rem; }
+.b-recipe .btn { align-self: flex-start; }
+@media (max-width: 700px) { .b-recipe__body { grid-template-columns: 1fr; } }
+
+/* Časová os */
+.b-timeline { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 1rem; }
+.b-timeline li { background: var(--card); border: 1px solid #E5DDCC; border-radius: 16px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.98rem; line-height: 1.5; }
+.b-timeline li.is-last { background: var(--a-bg); color: var(--a-fg); border-color: var(--a-bg); }
+.b-timeline__year { font-family: var(--font-display); font-size: 2.2rem; line-height: 1; color: var(--a-ink); }
+.b-timeline li.is-last .b-timeline__year { color: var(--a-strong); }
+
+/* Mýty */
+.b-myths { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 1.25rem; }
+.b-myth { background: var(--a-soft); border-radius: 18px; padding: 1.75rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.b-myth__myth { font-size: 1.3rem; font-weight: 700; line-height: 1.3; }
+
+/* Citát */
+.b-quote { margin: 0 auto; padding: clamp(1.5rem, 4vw, 2.5rem); background: var(--a-bg); color: var(--a-strong); border-radius: 20px; }
+.b-quote blockquote { margin: 0; font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.25; }
+.b-quote figcaption { margin-top: 1rem; color: var(--a-fg); }
+
+/* Fakty */
+.b-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 1rem; }
+.b-fact { border-top: 3px solid var(--a-bg); padding-top: 1rem; display: flex; flex-direction: column; gap: 0.3rem; color: var(--ink-soft); }
+.b-fact__value { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1; color: var(--a-ink); }
+
+/* Tipy a kroky */
+.b-numbered { list-style: none; padding: 0; margin: 0; counter-reset: tip; display: grid; gap: 1.1rem; }
+.b-numbered li { counter-increment: tip; display: grid; grid-template-columns: 3.4rem 1fr; column-gap: 0.75rem; }
+.b-numbered li::before { content: counter(tip, decimal-leading-zero); grid-row: span 2; font-family: var(--font-display); font-size: 2.4rem; line-height: 1; color: var(--a-ink); }
+.b-numbered--steps li { background: var(--card); border: 1px solid #E5DDCC; border-radius: 16px; padding: 1.1rem 1.25rem; }
+
+/* Chyba vs. správne */
+.b-dos { display: grid; gap: 0.75rem; }
+.b-dos__row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.b-dos__row p { border-radius: 14px; padding: 1rem 1.2rem; }
+.b-dos__wrong { background: #F3E3DF; }
+.b-dos__wrong .b-label { color: #8E2C22; }
+.b-dos__right { background: #DDEBE4; }
+.b-dos__right .b-label { color: #005F4E; }
+@media (max-width: 600px) { .b-dos__row { grid-template-columns: 1fr; } }
+
+/* Hodnotenie */
+.b-rating { display: grid; grid-template-columns: auto 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; background: var(--card); border: 1px solid #E5DDCC; border-radius: 24px; padding: clamp(1.5rem, 4vw, 2.5rem); }
+.b-rating__total { width: 150px; height: 150px; border-radius: 50%; background: var(--a-bg); color: var(--a-fg); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.b-rating__num { font-family: var(--font-display); font-size: 3.4rem; line-height: 1; color: var(--a-strong); }
+.b-rating__rows { display: grid; gap: 0.6rem; }
+.b-rating__row { display: grid; grid-template-columns: minmax(110px, 160px) 1fr 2.2rem; align-items: center; gap: 0.75rem; }
+.b-bar { height: 10px; border-radius: 999px; background: var(--a-soft); overflow: hidden; }
+.b-bar span { display: block; height: 100%; background: var(--a-ink); border-radius: 999px; }
+.b-rating__verdict { margin-top: 0.5rem; color: var(--ink-soft); }
+@media (max-width: 640px) { .b-rating { grid-template-columns: 1fr; justify-items: start; } }
+
+/* Podnik */
+.b-place { background: var(--a-soft); border-radius: 20px; padding: 1.75rem; }
+.b-place h2 { font-size: 2rem; margin-bottom: 0.75rem; }
+.b-place dl { display: grid; grid-template-columns: auto 1fr; gap: 0.4rem 1.25rem; margin: 0 0 1.25rem; }
+.b-place dt { font-weight: 700; }
+.b-place dd { margin: 0; color: var(--ink-soft); }
+.b-place .btn--ghost { color: var(--a-ink); }
+
+/* Profil */
+.b-profile { display: flex; gap: 1.5rem; align-items: center; background: var(--card); border: 1px solid #E5DDCC; border-radius: 20px; padding: 1.5rem; }
+.b-profile img, .b-profile__initial { flex: none; width: 120px; height: 120px; border-radius: 50%; object-fit: cover; background: var(--a-bg); }
+.b-profile__initial { display: grid; place-items: center; font-family: var(--font-display); font-size: 3.5rem; color: var(--a-strong); }
+.b-profile h2 { font-size: 1.9rem; margin-bottom: 0.3rem; }
+@media (max-width: 560px) { .b-profile { flex-direction: column; align-items: flex-start; } }
+
+/* Otázky a odpovede */
+.b-qa { display: flex; flex-direction: column; gap: 1.75rem; }
+.b-qa__q { font-family: var(--font-display); font-size: clamp(1.4rem, 2.6vw, 1.8rem); line-height: 1.25; color: var(--a-ink); padding-left: 1.25rem; border-left: 3px solid var(--a-bg); }
+.b-qa__a { margin-top: 0.6rem; font-size: 1.1rem; line-height: 1.8; }
+.b-qa__a p + p { margin-top: 0.8rem; }
+
+/* Podcast */
+.b-podcast { display: flex; gap: 1.5rem; align-items: center; background: var(--a-bg); color: var(--a-fg); border-radius: 24px; padding: clamp(1.5rem, 4vw, 2.5rem); }
+.b-podcast h2 { color: var(--a-strong); font-size: clamp(1.6rem, 3vw, 2.2rem); }
+.b-podcast .b-label { color: var(--a-fg); }
+.b-podcast__play { flex: none; width: 84px; height: 84px; border-radius: 50%; background: var(--a-strong); color: var(--a-bg); display: grid; place-items: center; }
+.b-podcast .btn--light { background: var(--a-strong); color: var(--a-bg); }
+.b-podcast .btn--ghost { color: var(--a-strong); }
+@media (max-width: 560px) { .b-podcast { flex-direction: column; align-items: flex-start; } }
+
+/* Galéria */
+.b-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 1rem; }
+.b-gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 14px; }
+
+/* Produkt / odporúčanie */
+.b-product { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; background: var(--a-bg); color: var(--a-fg); border-radius: 24px; padding: clamp(1.5rem, 4vw, 2.25rem); }
+.b-product img { width: 160px; height: 120px; object-fit: cover; border-radius: 14px; }
+.b-product__text { flex: 1 1 280px; }
+.b-product h2 { color: var(--a-strong); font-size: 1.9rem; margin-bottom: 0.3rem; }
+.b-product .b-label { color: var(--a-fg); }
+.b-product__cta { display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-start; }
+.b-product__price { font-size: 1.6rem; font-weight: 700; color: var(--a-strong); }
+.b-product .btn--light { background: var(--a-strong); color: var(--a-bg); }
+
+/* Poznámka */
+.b-callout { border-radius: 16px; padding: 1.1rem 1.35rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.b-callout--info { background: var(--a-soft); }
+.b-callout--tip { background: #DDEBE4; }
+.b-callout--pozor { background: #F6E6C8; }
+
+/* Zdroje */
+.b-sources { font-size: 0.92rem; color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 1.25rem; }
+.b-sources ul { margin: 0; padding-left: 1.2rem; }

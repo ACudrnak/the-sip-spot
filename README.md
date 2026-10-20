@@ -80,6 +80,41 @@ draft: true                              # true = na živom webe sa nezobrazí
 Text článku v Markdowne. ## Nadpis, **tučné**, *kurzíva*, zoznamy, > citát.
 ```
 
+### Šablóny, vzhľad a bloky
+
+Článok nemusí mať text pod hlavičkou. Celý obsah sa dá poskladať z **blokov** v poli `blocks`. Každý článok tak môže vyzerať inak, ale vždy v dizajne Sip Spotu. Ukážky: `paloma-historia-a-recept.md`, `espresso-martini-doma.md`, `ukazka-recenzia-baru.md`, `ukazka-rozhovor-s-barmanom.md`.
+
+| Pole | Hodnoty | Čo robí |
+| --- | --- | --- |
+| `typ` | `pribeh`, `recept`, `recenzia`, `rozhovor`, `navod`, `novinka` | šablóna; v úvode zvýrazní napr. čas receptu, hodnotenie baru alebo meno hosťa |
+| `hero` | `split`, `fullbleed`, `typo` | variant úvodu: text + obrázok / farebný pás cez celú šírku / veľká typografia |
+| `accent` | `zelena`, `bezova`, `tmava`, `grapefruit` | farebný akcent článku |
+
+Bloky (`- type: ...`), v ľubovoľnom poradí a počte:
+
+| Blok | Povinné polia | Nepovinné |
+| --- | --- | --- |
+| `text` | `md` (Markdown) | |
+| `recipe` | `ingredients[]`, `steps[]` | `title`, `time`, `servings`, `glass`, `difficulty` (ľahké/stredné/náročné), `quick`, `nonAlcoholic`, `video` |
+| `timeline` | `items[]: {year, text}` (min. 2) | `title` |
+| `myths` | `items[]: {myth, truth}` | `title` |
+| `quote` | `text` | `author` |
+| `facts` | `items[]: {value, label}` (2–6) | `title` |
+| `tips` | `items[]: {title, text}` | `title` |
+| `steps` | `items[]: {title, text}` (min. 2) | `title` |
+| `dosDonts` | `items[]: {wrong, right}` | `title` |
+| `rating` | `items[]: {label, score 0–5}` | `title`, `verdict` |
+| `place` | `name` | `area`, `address`, `hours`, `price`, `order[]`, `mapUrl`, `web`, `instagram` |
+| `profile` | `name`, `role`, `bio` | `image` |
+| `qa` | `items[]: {q, a}` (`a` je Markdown) | `title` |
+| `podcast` | `title` | `episode`, `duration`, `url`, `platforms[]: {name, url}` |
+| `gallery` | `images[]: {src, alt}` (min. 2) | `title` |
+| `product` | `title`, `text`, `url` | `kicker`, `price`, `cta`, `image` |
+| `callout` | `text` | `title`, `tone` (info/tip/pozor) |
+| `sources` | `items[]: {title}` | `url` pri každom zdroji |
+
+Presná definícia je v `src/content.config.ts`. Ak blok nemá povinné pole, `npm run build` skončí chybou s presným miestom.
+
 - `draft: true` – článok vidíš v lokálnom náhľade (`npm run dev`), ale na živom webe nie je.
 - Dátum v budúcnosti – článok sa na živom webe zobrazí až po najbližšom nasadení po tomto dátume.
 - Ak chýba povinné pole alebo je zlá kategória, `npm run build` skončí chybou a povie, čo je zle. Živý web ostane na poslednej funkčnej verzii.
@@ -114,6 +149,7 @@ Staré adresy: `zasady-cookies.html` presmeruje na `/zasady-cookies/`.
 - [ ] Doplniť formát a ceny workshopov a tastingov (`src/data/akcie.ts`).
 - [ ] Po prechode na s.r.o. aktualizovať firmu, IČO a adresu (`src/data/site.ts`).
 - [ ] Overiť prevádzkovateľa v zásadách cookies – pôvodný web uvádza Ravello s. r. o., čo nesedí s kontaktom.
-- [ ] Skontrolovať a zverejniť článok o Palome (`draft: false`).
+- [ ] Skontrolovať a zverejniť články o Palome a Espresso Martini (`draft: false`).
+- [ ] Pred spustením zmazať ukážkové články `ukazka-*.md` (vymyslený bar a barman).
 - [ ] Nastaviť n8n webhook pre formulár.
 - [ ] Fotky z workshopov a tastingov namiesto ilustrácií, keď budú.

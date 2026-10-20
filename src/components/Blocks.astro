@@ -1,0 +1,233 @@
+---
+// Vykreslí bloky článku v poradí, v akom sú v hlavičke .md súboru (pole `blocks`).
+// Každý typ bloku má vlastný vzhľad; farby berie z akcentu článku.
+import { marked } from 'marked';
+import type { Block } from '../content.config';
+
+interface Props { blocks: Block[] }
+const { blocks } = Astro.props;
+
+const md = (s: string) => marked.parse(s, { async: false }) as string;
+const mdInline = (s: string) => marked.parseInline(s, { async: false }) as string;
+const stars = (n: number) => Math.round(n * 2) / 2;
+---
+{blocks.map((b) => {
+  switch (b.type) {
+    case 'text':
+      return <div class="b-text prose" set:html={md(b.md)} />;
+
+    case 'recipe':
+      return (
+        <section class="b b-recipe">
+          <div class="b-recipe__head">
+            <span class="kicker">Recept</span>
+            <h2>{b.title}</h2>
+            <div class="b-chips">
+              {b.time && <span class="b-chip">⏱ {b.time}</span>}
+              {b.servings && <span class="b-chip">{b.servings}</span>}
+              {b.glass && <span class="b-chip">Pohár: {b.glass}</span>}
+              {b.difficulty && <span class="b-chip">Náročnosť: {b.difficulty}</span>}
+            </div>
+          </div>
+          <div class="b-recipe__body">
+            <div>
+              <h3>Potrebujete</h3>
+              <ul class="b-recipe__ing">{b.ingredients.map((i) => <li set:html={mdInline(i)} />)}</ul>
+            </div>
+            <div>
+              <h3>Postup</h3>
+              <ol class="b-recipe__steps">{b.steps.map((s) => <li><span set:html={mdInline(s)} /></li>)}</ol>
+            </div>
+          </div>
+          {(b.quick || b.nonAlcoholic) && (
+            <div class="b-recipe__variants">
+              {b.quick && <p><b>Rýchla verzia:</b> <span set:html={mdInline(b.quick)} /></p>}
+              {b.nonAlcoholic && <p><b>Nealko verzia:</b> <span set:html={mdInline(b.nonAlcoholic)} /></p>}
+            </div>
+          )}
+          {b.video && <a class="btn btn--primary" href={b.video} target="_blank" rel="noopener">▶ Pozrieť video recept</a>}
+        </section>
+      );
+
+    case 'timeline':
+      return (
+        <section class="b b-wide">
+          {b.title && <h2 class="b-title">{b.title}</h2>}
+          <ol class="b-timeline">
+            {b.items.map((it, i) => (
+              <li class:list={{ 'is-last': i === b.items.length - 1 }}>
+                <span class="b-timeline__year">{it.year}</span>
+                <span set:html={mdInline(it.text)} />
+              </li>
+            ))}
+          </ol>
+        </section>
+      );
+
+    case 'myths':
+      return (
+        <section class="b b-wide">
+          <h2 class="b-title">{b.title}</h2>
+          <div class="b-myths">
+            {b.items.map((it, i) => (
+              <div class="b-myth">
+                <span class="b-label">Mýtus č. {i + 1}</span>
+                <p class="b-myth__myth">„{it.myth}“</p>
+                <p set:html={mdInline(it.truth)} />
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+
+    case 'quote':
+      return (
+        <figure class="b b-quote">
+          <blockquote>„{b.text}“</blockquote>
+          {b.author && <figcaption>— {b.author}</figcaption>}
+        </figure>
+      );
+
+    case 'facts':
+      return (
+        <section class="b b-wide">
+          {b.title && <h2 class="b-title">{b.title}</h2>}
+          <div class="b-facts">
+            {b.items.map((f) => <div class="b-fact"><span class="b-fact__value">{f.value}</span><span>{f.label}</span></div>)}
+          </div>
+        </section>
+      );
+
+    case 'tips':
+    case 'steps':
+      return (
+        <section class="b">
+          {b.title && <h2 class="b-title">{b.title}</h2>}
+          <ol class:list={['b-numbered', { 'b-numbered--steps': b.type === 'steps' }]}>
+            {b.items.map((t) => <li><b>{t.title}</b><span set:html={mdInline(t.text)} /></li>)}
+          </ol>
+        </section>
+      );
+
+    case 'dosDonts':
+      return (
+        <section class="b">
+          <h2 class="b-title">{b.title}</h2>
+          <div class="b-dos">
+            {b.items.map((it) => (
+              <div class="b-dos__row">
+                <p class="b-dos__wrong"><span class="b-label">Takto nie</span><span set:html={mdInline(it.wrong)} /></p>
+                <p class="b-dos__right"><span class="b-label">Takto áno</span><span set:html={mdInline(it.right)} /></p>
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+
+    case 'rating': {
+      const avg = b.items.reduce((s, i) => s + i.score, 0) / b.items.length;
+      return (
+        <section class="b b-rating">
+          <div class="b-rating__total"><span class="b-rating__num">{avg.toFixed(1).replace('.', ',')}</span><span>z 5</span></div>
+          <div class="b-rating__rows">
+            <h2 class="b-title" style="margin-bottom: 0.5rem">{b.title}</h2>
+            {b.items.map((r) => (
+              <div class="b-rating__row">
+                <span>{r.label}</span>
+                <span class="b-bar" role="img" aria-label={`${r.label}: ${r.score} z 5`}><span style={`width: ${(stars(r.score) / 5) * 100}%`} /></span>
+                <b>{r.score.toString().replace('.', ',')}</b>
+              </div>
+            ))}
+            {b.verdict && <p class="b-rating__verdict" set:html={mdInline(b.verdict)} />}
+          </div>
+        </section>
+      );
+    }
+
+    case 'place':
+      return (
+        <aside class="b b-place">
+          <span class="b-label">Info o podniku</span>
+          <h2>{b.name}</h2>
+          <dl>
+            {b.area && <><dt>Kde</dt><dd>{b.area}</dd></>}
+            {b.address && <><dt>Adresa</dt><dd>{b.address}</dd></>}
+            {b.hours && <><dt>Otvorené</dt><dd>{b.hours}</dd></>}
+            {b.price && <><dt>Ceny</dt><dd>{b.price}</dd></>}
+            {b.order && <><dt>Objednajte si</dt><dd>{b.order.join(' · ')}</dd></>}
+          </dl>
+          <div class="btn-row">
+            {b.mapUrl && <a class="btn btn--primary" href={b.mapUrl} target="_blank" rel="noopener">Mapa</a>}
+            {b.web && <a class="btn btn--ghost" href={b.web} target="_blank" rel="noopener">Web</a>}
+            {b.instagram && <a class="btn btn--ghost" href={`https://www.instagram.com/${b.instagram.replace('@', '')}`} target="_blank" rel="noopener">{b.instagram}</a>}
+          </div>
+        </aside>
+      );
+
+    case 'profile':
+      return (
+        <aside class="b b-profile">
+          {b.image ? <img src={b.image} alt="" width="160" height="160" /> : <span class="b-profile__initial">{b.name.charAt(0)}</span>}
+          <div><span class="b-label">{b.role}</span><h2>{b.name}</h2><p set:html={mdInline(b.bio)} /></div>
+        </aside>
+      );
+
+    case 'qa':
+      return (
+        <section class="b b-qa">
+          {b.title && <h2 class="b-title">{b.title}</h2>}
+          {b.items.map((it) => (
+            <div class="b-qa__item"><p class="b-qa__q">{it.q}</p><div class="b-qa__a" set:html={md(it.a)} /></div>
+          ))}
+        </section>
+      );
+
+    case 'podcast':
+      return (
+        <section class="b b-podcast">
+          <span class="b-podcast__play" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg></span>
+          <div>
+            <span class="b-label">{b.episode ? `Podcast · ${b.episode}` : 'Podcast'}{b.duration ? ` · ${b.duration}` : ''}</span>
+            <h2>{b.title}</h2>
+            <div class="btn-row" style="margin-top: 0.75rem">
+              {b.url && <a class="btn btn--light" href={b.url} target="_blank" rel="noopener">Prehrať epizódu</a>}
+              {b.platforms.map((p) => <a class="btn btn--ghost" href={p.url} target="_blank" rel="noopener">{p.name}</a>)}
+            </div>
+          </div>
+        </section>
+      );
+
+    case 'gallery':
+      return (
+        <section class="b b-wide">
+          {b.title && <h2 class="b-title">{b.title}</h2>}
+          <div class="b-gallery">{b.images.map((im) => <img src={im.src} alt={im.alt} loading="lazy" width="600" height="450" />)}</div>
+        </section>
+      );
+
+    case 'product':
+      return (
+        <aside class="b b-product">
+          {b.image && <img src={b.image} alt="" width="200" height="150" />}
+          <div class="b-product__text"><span class="b-label">{b.kicker}</span><h2>{b.title}</h2><p set:html={mdInline(b.text)} /></div>
+          <div class="b-product__cta">{b.price && <span class="b-product__price">{b.price}</span>}<a class="btn btn--light" href={b.url}>{b.cta}</a></div>
+        </aside>
+      );
+
+    case 'callout':
+      return (
+        <aside class:list={['b', 'b-callout', `b-callout--${b.tone}`]}>
+          {b.title && <b>{b.title}</b>}
+          <span set:html={mdInline(b.text)} />
+        </aside>
+      );
+
+    case 'sources':
+      return (
+        <section class="b b-sources">
+          <span class="b-label">Zdroje</span>
+          <ul>{b.items.map((s) => <li>{s.url ? <a href={s.url} target="_blank" rel="noopener">{s.title}</a> : s.title}</li>)}</ul>
+        </section>
+      );
+  }
+})}

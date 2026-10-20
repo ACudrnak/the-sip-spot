@@ -9,7 +9,7 @@ const { title, description, category, image, imageAlt, date } = post.data;
     <img src={image ?? DEFAULT_POST_IMAGE} alt={imageAlt ?? ''} width="600" height="450" loading="lazy" />
   </div>
   <div class="card__body">
-    <span class="card__meta">{category} · {readingTime(post.body)} min čítania</span>
+    <span class="card__meta">{category} · {readingTime(post)} min čítania</span>
     <h3>{title}</h3>
     <p class="muted">{description}</p>
     <span class="muted" style="font-size: 0.9rem; margin-top: auto">{formatDate(date)}</span>

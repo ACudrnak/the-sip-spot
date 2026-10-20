@@ -14,10 +14,21 @@ export async function getPosts(): Promise<Post[]> {
   return posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 }
 
-export function readingTime(body = ''): number {
-  const words = body.trim().split(/\s+/).filter(Boolean).length;
+/** Odhad času čítania z textu článku aj z blokov (200 slov za minútu). */
+export function readingTime(post: Post): number {
+  const blockText = JSON.stringify(post.data.blocks ?? []).replace(/"[a-zA-Z]+":/g, ' ');
+  const words = `${post.body ?? ''} ${blockText}`.trim().split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.round(words / 200));
 }
+
+export const TYPE_LABELS = {
+  pribeh: 'Príbeh',
+  recept: 'Recept',
+  recenzia: 'Recenzia',
+  rozhovor: 'Rozhovor',
+  navod: 'Návod',
+  novinka: 'Novinka',
+} as const;
 
 export function formatDate(d: Date): string {
   return d.toLocaleDateString('sk-SK', { day: 'numeric', month: 'long', year: 'numeric' });

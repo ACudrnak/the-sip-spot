@@ -2,7 +2,8 @@
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PostCard from '../../components/PostCard.astro';
-import { getPosts, readingTime, formatDate, DEFAULT_POST_IMAGE, type Post } from '../../lib/blog';
+import Blocks from '../../components/Blocks.astro';
+import { getPosts, readingTime, formatDate, DEFAULT_POST_IMAGE, TYPE_LABELS, type Post } from '../../lib/blog';
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -12,34 +13,73 @@ export async function getStaticPaths() {
 const { post, all } = Astro.props as { post: Post; all: Post[] };
 const { Content } = await render(post);
 const d = post.data;
-const related = all.filter((p) => p.id !== post.id).sort((a, b) => Number(b.data.category === d.category) - Number(a.data.category === d.category)).slice(0, 3);
----
-<Base title={d.title} description={d.description} image={d.image ?? DEFAULT_POST_IMAGE} type="article">
-  <article>
-    <header class="post-hero">
-      <div class="container">
-        <a href="/blog/">← Blog</a>
-        <div class="post-hero__grid" style="margin-top: 1.5rem">
-          <div style="display: flex; flex-direction: column; gap: 1.25rem">
-            <span class="kicker">{d.category} · {readingTime(post.body)} min čítania</span>
-            <h1>{d.title}</h1>
-            <p class="lead">{d.description}</p>
-            <div class="post-meta"><span>{d.author}</span><time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></div>
-          </div>
-          <div class="post-hero__img"><img src={d.image ?? DEFAULT_POST_IMAGE} alt={d.imageAlt ?? ''} width="600" height="450" /></div>
-        </div>
-      </div>
-    </header>
+const img = d.image ?? DEFAULT_POST_IMAGE;
+const hasBody = (post.body ?? '').trim().length > 0;
+const related = all
+  .filter((p) => p.id !== post.id)
+  .sort((a, b) => Number(b.data.category === d.category) - Number(a.data.category === d.category))
+  .slice(0, 3);
 
-    <div class="section" style="padding-top: 3.5rem">
-      <div class="container">
-        <div class="prose">
-          {d.video && (
-            <p><a class="btn btn--primary" href={d.video} target="_blank" rel="noopener">▶ Pozrieť video recept</a></p>
-          )}
-          <Content />
+// Rýchly prehľad v úvode podľa typu článku (berie údaje z prvého vhodného bloku).
+const find = <T extends string>(t: T) => d.blocks.find((b) => b.type === t) as any;
+const glance: string[] = [];
+if (d.typ === 'recept') {
+  const r = find('recipe');
+  if (r?.time) glance.push(`⏱ ${r.time}`);
+  if (r?.difficulty) glance.push(`Náročnosť: ${r.difficulty}`);
+  if (r?.nonAlcoholic) glance.push('Aj nealko verzia');
+}
+if (d.typ === 'recenzia') {
+  const r = find('rating');
+  const p = find('place');
+  if (r) glance.push(`★ ${(r.items.reduce((s: number, i: any) => s + i.score, 0) / r.items.length).toFixed(1).replace('.', ',')} z 5`);
+  if (p?.area) glance.push(p.area);
+}
+if (d.typ === 'rozhovor') {
+  const p = find('profile');
+  const pod = find('podcast');
+  if (p) glance.push(`${p.name}, ${p.role}`);
+  if (pod?.duration) glance.push(`🎧 ${pod.duration}`);
+}
+const kicker = `${TYPE_LABELS[d.typ]} · ${d.category} · ${readingTime(post)} min čítania`;
+---
+<Base title={d.title} description={d.description} image={img} type="article">
+  <article class="article" data-accent={d.accent}>
+    {d.hero === 'typo' ? (
+      <header class="ahero ahero--typo">
+        <div class="container ahero__text">
+          <a href="/blog/">← Blog</a>
+          <div class="ahero__badge"><img src={img} alt={d.imageAlt ?? ''} width="280" height="210" /></div>
+          <span class="kicker">{kicker}</span>
+          <h1>{d.title}</h1>
+          <p class="lead">{d.description}</p>
+          {glance.length > 0 && <div class="glance">{glance.map((g) => <span>{g}</span>)}</div>}
+          <div class="post-meta"><span>{d.author}</span><time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></div>
         </div>
-      </div>
+      </header>
+    ) : (
+      <header class:list={['ahero', { 'ahero--fullbleed': d.hero === 'fullbleed' }]}>
+        <div class="container">
+          {d.hero !== 'fullbleed' && <a href="/blog/">← Blog</a>}
+          <div class="ahero__grid" style={d.hero === 'fullbleed' ? '' : 'margin-top: 1.5rem'}>
+            <div class="ahero__text">
+              {d.hero === 'fullbleed' && <a href="/blog/">← Blog</a>}
+              <span class="kicker">{kicker}</span>
+              <h1>{d.title}</h1>
+              <p class="lead">{d.description}</p>
+              {glance.length > 0 && <div class="glance">{glance.map((g) => <span>{g}</span>)}</div>}
+              <div class="post-meta"><span>{d.author}</span><time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></div>
+            </div>
+            <div class="ahero__img"><img src={img} alt={d.imageAlt ?? ''} width="600" height="450" /></div>
+          </div>
+        </div>
+      </header>
+    )}
+
+    <div class="article-body">
+      {d.video && <p><a class="btn btn--primary" href={d.video} target="_blank" rel="noopener">▶ Pozrieť video</a></p>}
+      {hasBody && <div class="b-text prose"><Content /></div>}
+      <Blocks blocks={d.blocks} />
     </div>
   </article>
 
