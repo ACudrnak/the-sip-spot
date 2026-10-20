@@ -1,0 +1,37 @@
+---
+import { site } from '../data/site';
+import { akcie } from '../data/akcie';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <img class="site-footer__logo" src="/images/logo/Sipspot_long_beige.svg" alt="Sip Spot" width="190" height="32" />
+        <p>{site.tagline}</p>
+        <p style="margin-top: 1rem"><a href={site.instagram.url} target="_blank" rel="noopener">{site.instagram.handle}</a></p>
+      </div>
+      <div>
+        <h3>Akcie</h3>
+        <ul>
+          {akcie.map((a) => <li><a href={`/akcie/${a.slug}/`}>{a.title}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <h3>Kontakt</h3>
+        <ul>
+          <li><a href={site.phoneHref}>{site.phone}</a></li>
+          <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li><a href="/blog/">Blog</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <span>© {year} {site.name}. Všetky práva vyhradené. · IČO: {site.company.ico}</span>
+      <span>
+        <a href="/zasady-cookies/">Zásady cookies</a> ·
+        <button type="button" class="linklike" data-open-cookies>Nastavenia cookies</button>
+      </span>
+    </div>
+  </div>
+</footer>

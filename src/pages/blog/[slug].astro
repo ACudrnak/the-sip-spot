@@ -1,0 +1,54 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPosts, readingTime, formatDate, DEFAULT_POST_IMAGE, type Post } from '../../lib/blog';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post, all: posts } }));
+}
+
+const { post, all } = Astro.props as { post: Post; all: Post[] };
+const { Content } = await render(post);
+const d = post.data;
+const related = all.filter((p) => p.id !== post.id).sort((a, b) => Number(b.data.category === d.category) - Number(a.data.category === d.category)).slice(0, 3);
+---
+<Base title={d.title} description={d.description} image={d.image ?? DEFAULT_POST_IMAGE} type="article">
+  <article>
+    <header class="post-hero">
+      <div class="container">
+        <a href="/blog/">← Blog</a>
+        <div class="post-hero__grid" style="margin-top: 1.5rem">
+          <div style="display: flex; flex-direction: column; gap: 1.25rem">
+            <span class="kicker">{d.category} · {readingTime(post.body)} min čítania</span>
+            <h1>{d.title}</h1>
+            <p class="lead">{d.description}</p>
+            <div class="post-meta"><span>{d.author}</span><time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></div>
+          </div>
+          <div class="post-hero__img"><img src={d.image ?? DEFAULT_POST_IMAGE} alt={d.imageAlt ?? ''} width="600" height="450" /></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="section" style="padding-top: 3.5rem">
+      <div class="container">
+        <div class="prose">
+          {d.video && (
+            <p><a class="btn btn--primary" href={d.video} target="_blank" rel="noopener">▶ Pozrieť video recept</a></p>
+          )}
+          <Content />
+        </div>
+      </div>
+    </div>
+  </article>
+
+  {related.length > 0 && (
+    <section class="section section--cream">
+      <div class="container">
+        <h2 style="margin-bottom: 2rem">Mohlo by vás <em>zaujímať</em></h2>
+        <div class="grid grid--3">{related.map((p) => <PostCard post={p} />)}</div>
+      </div>
+    </section>
+  )}
+</Base>

@@ -1,0 +1,74 @@
+---
+import Base from '../../layouts/Base.astro';
+import AkciaCard from '../../components/AkciaCard.astro';
+import Contact from '../../components/Contact.astro';
+import { akcie, type Akcia } from '../../data/akcie';
+
+export function getStaticPaths() {
+  return akcie.map((akcia) => ({ params: { slug: akcia.slug }, props: { akcia } }));
+}
+
+const { akcia } = Astro.props as { akcia: Akcia };
+const others = akcie.filter((a) => a.slug !== akcia.slug);
+const facts = [
+  { label: 'Dĺžka', value: akcia.format.duration },
+  { label: 'Počet ľudí', value: akcia.format.capacity },
+  { label: 'Kde', value: akcia.format.location },
+  { label: 'Cena', value: akcia.format.price },
+];
+---
+<Base title={akcia.title} description={akcia.short} image={akcia.illustration}>
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__text">
+        <a href="/akcie/" style="color: var(--cream)">← Všetky akcie</a>
+        <span class="kicker">{akcia.kicker}</span>
+        <h1>{akcia.title}</h1>
+        <p class="lead">{akcia.short}</p>
+        <div class="btn-row"><a href="#kontakt" class="btn btn--light">Chcem ponuku</a></div>
+      </div>
+      <div class="hero__art"><img src={akcia.illustration} alt="" width="600" height="450" /></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-col">
+      <div style="display: flex; flex-direction: column; gap: 1.25rem">
+        <h2>O <em>akcii</em></h2>
+        {akcia.intro.map((p) => <p class="lead">{p}</p>)}
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2rem">
+        <div class="facts">
+          {facts.map((f) => (
+            <div class="fact">
+              <div class="fact__label">{f.label}</div>
+              <div class:list={['fact__value', { 'is-empty': !f.value }]}>{f.value ?? 'Na vyžiadanie'}</div>
+            </div>
+          ))}
+        </div>
+        <div class="two-col" style="gap: 2rem">
+          <div><h3 style="margin-bottom: 1rem">V cene</h3><ul class="checklist">{akcia.included.map((i) => <li>{i}</li>)}</ul></div>
+          <div><h3 style="margin-bottom: 1rem">Pre koho</h3><ul class="checklist">{akcia.forWho.map((i) => <li>{i}</li>)}</ul></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream">
+    <div class="container">
+      <h2 style="margin-bottom: 2.5rem">Ako to <em>prebieha</em></h2>
+      <ol class="steps">
+        {akcia.steps.map((s) => <li><strong>{s.title}</strong><span class="muted">{s.text}</span></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 style="margin-bottom: 2rem">Ďalšie <em>akcie</em></h2>
+      <div class="grid grid--3">{others.map((a) => <AkciaCard akcia={a} />)}</div>
+    </div>
+  </section>
+
+  <Contact preselect={akcia.slug} />
+</Base>

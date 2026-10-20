@@ -1,0 +1,41 @@
+# Pri každom pushi do main zostaví web a nasadí ho na GitHub Pages.
+# Pred prvým nasadením: Settings → Pages → Source: "GitHub Actions".
+name: Nasadenie webu
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stiahnuť repo
+        uses: actions/checkout@v4
+      - name: Zostaviť web
+        uses: withastro/action@v3
+        with:
+          node-version: 22
+        env:
+          PUBLIC_INQUIRY_ENDPOINT: ${{ vars.PUBLIC_INQUIRY_ENDPOINT }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Nasadiť na GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

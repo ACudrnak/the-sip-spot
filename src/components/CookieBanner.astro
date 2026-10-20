@@ -1,0 +1,58 @@
+---
+// Cookie lišta. Rovnaké správanie ako na pôvodnom webe; voľby sa ukladajú do localStorage.
+// Analytické a marketingové skripty zatiaľ web nepoužíva — keď pribudnú, spúšťať ich len po súhlase
+// (window.sipspotConsent.analytics / .marketing, udalosť "sipspot:consent").
+---
+<div class="cookie" id="cookie-banner" role="dialog" aria-modal="false" aria-labelledby="cookie-title">
+  <div class="cookie__box">
+    <h2 id="cookie-title">Aké cookies na webe používame?</h2>
+    <p><b>Technické cookies</b> zabezpečujú, aby web správne fungoval. Tie sú vždy zapnuté.</p>
+    <div class="cookie__opts">
+      <label class="check"><input type="checkbox" id="cookie-analytics" /> <span><b>Analytické</b> — pomáhajú nám pochopiť návštevnosť a zlepšovať web.</span></label>
+      <label class="check"><input type="checkbox" id="cookie-marketing" /> <span><b>Marketingové</b> — umožňujú zobrazovať vám zaujímavý obsah.</span></label>
+    </div>
+    <p>Viac v <a href="/zasady-cookies/">zásadách používania cookies</a>.</p>
+    <div class="btn-row">
+      <button type="button" class="btn btn--ghost" style="color: var(--green)" data-cookie="reject">Odmietnuť všetky</button>
+      <button type="button" class="btn btn--ghost" style="color: var(--green)" data-cookie="selected">Uložiť výber</button>
+      <button type="button" class="btn btn--primary" data-cookie="all">Prijať všetky</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  type Consent = { analytics: boolean; marketing: boolean };
+  const KEY = 'sipspot-consent';
+  const banner = document.getElementById('cookie-banner');
+  const a = document.getElementById('cookie-analytics') as HTMLInputElement | null;
+  const m = document.getElementById('cookie-marketing') as HTMLInputElement | null;
+
+  function read(): Consent | null {
+    try { const v = localStorage.getItem(KEY); return v ? JSON.parse(v) : null; } catch { return null; }
+  }
+  function save(c: Consent) {
+    try { localStorage.setItem(KEY, JSON.stringify(c)); } catch { /* súkromné okno */ }
+    (window as any).sipspotConsent = c;
+    window.dispatchEvent(new CustomEvent('sipspot:consent', { detail: c }));
+    banner?.classList.remove('show');
+  }
+  function open() {
+    const c = read();
+    if (a) a.checked = !!c?.analytics;
+    if (m) m.checked = !!c?.marketing;
+    banner?.classList.add('show');
+  }
+
+  const current = read();
+  if (current) (window as any).sipspotConsent = current; else open();
+
+  banner?.querySelectorAll<HTMLButtonElement>('[data-cookie]').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const kind = btn.dataset.cookie;
+      if (kind === 'all') save({ analytics: true, marketing: true });
+      else if (kind === 'reject') save({ analytics: false, marketing: false });
+      else save({ analytics: !!a?.checked, marketing: !!m?.checked });
+    }),
+  );
+  document.querySelectorAll('[data-open-cookies]').forEach((el) => el.addEventListener('click', open));
+</script>

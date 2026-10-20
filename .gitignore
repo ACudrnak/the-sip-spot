@@ -1,0 +1,13 @@
+# build a závislosti
+dist/
+node_modules/
+.astro/
+
+# lokálne nastavenia
+.env
+.env.*
+!.env.example
+
+# systém
+.DS_Store
+npm-debug.log*

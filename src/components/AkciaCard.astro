@@ -1,0 +1,17 @@
+---
+import type { Akcia } from '../data/akcie';
+interface Props { akcia: Akcia; highlight?: boolean }
+const { akcia, highlight = false } = Astro.props;
+---
+<a href={`/akcie/${akcia.slug}/`} class:list={['card', { 'card--green': highlight }]}>
+  <div class="card__media">
+    <img src={akcia.illustration} alt="" width="600" height="450" loading="lazy" />
+    {akcia.badge && <span class="pill">{akcia.badge}</span>}
+  </div>
+  <div class="card__body">
+    <span class="card__meta">{akcia.kicker}</span>
+    <h3>{akcia.title}</h3>
+    <p>{akcia.short}</p>
+    <span class="card__more">Viac o akcii →</span>
+  </div>
+</a>

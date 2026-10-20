@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+<Base title="Zásady používania cookies">
+  <section class="section">
+    <div class="container legal">
+      <a href="/">← Späť na hlavnú stránku</a>
+      <h1 style="margin: 1.5rem 0 2rem; font-size: clamp(2rem, 4vw, 3rem)">Zásady používania cookies</h1>
+
+      <h2>Čo sú cookies?</h2>
+      <p>Súbory cookies sú malé dátové súbory (rôzne dlhé reťazce čísel a písmen), ktoré náš web ukladá vo vašom webovom prehliadači. Vďaka cookies si vie náš web zapamätať vaše preferencie a nastavenia, keď sa na náš web vrátite.</p>
+
+      <h2>Kto ukladá cookies?</h2>
+      {/* TODO: overiť prevádzkovateľa. Pôvodný web tu uvádzal Ravello s. r. o., čo nesedí s údajmi v kontakte. Po prechode na s.r.o. doplniť správne údaje. */}
+      <p>Prevádzkovateľom nášho webu je spoločnosť Ravello s. r. o., so sídlom Na Varte 4A, 831 01 Bratislava, Slovenská republika, IČO: 47 240 202, spoločnosť zapísaná v Obchodnom registri Okresného súdu Bratislava I, Oddiel: Sro, Vložka č. 82765/B.</p>
+
+      <h2>Aké cookies používame?</h2>
+      <p><strong>Technické cookies</strong> zabezpečujú, aby správne fungoval náš web, aby ste mohli použiť vyhľadávanie na našom webe, a aby fungovali všetky ostatné funkcionality tak, aby bol pre vás náš web užitočný. Medzi technické cookies sa zaraďujú aj funkčné cookies, ktoré je nevyhnutné používať na to, aby sme vám poskytli služby alebo funkcionality na našom webe, o ktoré žiadate. Na používanie technických cookies nie je potrebný váš súhlas.</p>
+      <p><strong>Analytické cookies</strong> nám pomáhajú analyzovať návštevnosť nášho webu a interakciu návštevníkov s jej obsahom a tak zlepšovať našu stránku, aby ste z nej mali čo najväčší zážitok. Tieto cookies využívame v spolupráci s našimi partnermi, ak nám k tomu udelíte váš súhlas.</p>
+      <p><strong>Marketingové cookies</strong> používame, aby sme vám mohli zobrazovať rôzny zaujímavý obsah, najmä akcie, benefity, súťaže, novinky, a iné ponuky, ktoré by vás mohli zaujímať. Tieto cookies využívame v spolupráci s našimi partnermi, ak nám k tomu udelíte váš súhlas.</p>
+      <p>Ukladanie a využitie cookies a iných online identifikátorov ukladaných do webového prehliadača alebo zariadenia používateľa upravuje zákon č. 452/2021 Z.z. o elektronických komunikáciách.</p>
+
+      <h2>Ako dlho používame cookies?</h2>
+      <p><strong>Dočasné cookies</strong> existujú iba v dočasnej pamäti webového prehliadača počas toho, kým si používateľ prehliada náš web. Webové prehliadače zvyčajne vymažú tieto súbory cookie hneď, ako používateľ zatvorí webový prehliadač.</p>
+      <p><strong>Trvalé cookies</strong> – platnosť trvalého súboru cookie uplynie k určitému dátumu alebo po určitom časovom období, ktoré je nastavené v závislosti od typu cookies na niekoľko dní, týždňov alebo mesiacov, nie však viac ako 1 rok. Tento typ cookies počas celej doby svojej živnosti prenáša informácie medzi serverom nášho webu a webovým prehliadačom návštevníka pri každej jeho návšteve našej webovej stránky.</p>
+      <p>Súbory cookies neslúžia priamo k zhromažďovaniu osobných údajov, avšak nie je vylúčené, že môžu byť za určitých okolností priraditeľné k určitej fyzickej osobe. Takéto prepojenia však nerobíme.</p>
+      <p>Taktiež nie je možné vylúčiť, že niektoré informácie získavané z cookies by mohli byť prípadne našimi partnermi ukladané aj na servery mimo EÚ, najmä USA. Aj keď sú ukladané a využívané len anonymné informácie, vždy si riadne overíme, že títo partneri spĺňajú primerané záruky na ochranu práv našich používateľov, najmä štandardné zmluvné doložky podľa GDPR.</p>
+
+      <h2>Ako zakázať cookies?</h2>
+      <p>Ukladanie iných ako technických súborov môžete jednoducho odmietnuť pri vstupe na náš web a tieto cookies používané nebudú. Používanie technických cookies nie je možné týmto spôsobom zakázať, keďže ich ukladanie je nevyhnutné pre správne fungovanie webu a nie je potrebný váš súhlas.</p>
+      <p>Ukladanie všetkých súborov cookies vrátane technických môžete kedykoľvek zakázať v nastaveniach svojho webového prehliadača. Ak však zakážete ukladanie všetkých súborov cookie, väčšina základných funkcií nášho webu nemusí fungovať správne.</p>
+
+      <h2>Máte akékoľvek otázky?</h2>
+      <p>Kedykoľvek sa na nás obráťte na <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,50 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPosts } from '../../lib/blog';
+import { BLOG_CATEGORIES } from '../../content.config';
+
+const posts = await getPosts();
+const used = BLOG_CATEGORIES.filter((c) => posts.some((p) => p.data.category === c));
+---
+<Base title="Blog" description="Recepty na drinky doma, recenzie barov, rozhovory s barmanmi a príbehy koktailov.">
+  <section class="section" style="padding-bottom: 2rem">
+    <div class="container">
+      <span class="kicker">Blog</span>
+      <h1 style="margin-top: 0.75rem">Za <em>barom</em></h1>
+      <p class="lead" style="margin-top: 1rem; max-width: 50ch">Recepty na drinky doma, recenzie barov, rozhovory s barmanmi a príbehy klasík.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 1rem">
+    <div class="container">
+      {posts.length === 0 ? (
+        <div class="empty">Prvé články pripravujeme. Zatiaľ nás sledujte na Instagrame.</div>
+      ) : (
+        <>
+          {used.length > 1 && (
+            <div class="chips" role="group" aria-label="Filtrovať podľa témy">
+              <button type="button" class="chip" aria-pressed="true" data-filter="">Všetko</button>
+              {used.map((c) => <button type="button" class="chip" aria-pressed="false" data-filter={c}>{c}</button>)}
+            </div>
+          )}
+          <div class="grid grid--3" id="posts">
+            {posts.map((p) => <PostCard post={p} />)}
+          </div>
+        </>
+      )}
+    </div>
+  </section>
+</Base>
+
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>('.chip');
+  const cards = document.querySelectorAll<HTMLElement>('#posts [data-category]');
+  chips.forEach((chip) =>
+    chip.addEventListener('click', () => {
+      const f = chip.dataset.filter;
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+      cards.forEach((card) => (card.style.display = !f || card.dataset.category === f ? '' : 'none'));
+    }),
+  );
+</script>

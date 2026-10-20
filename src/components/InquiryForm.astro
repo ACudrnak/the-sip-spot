@@ -1,0 +1,59 @@
+---
+// Dopytový formulár. Ak je nastavená premenná PUBLIC_INQUIRY_ENDPOINT (napr. n8n webhook),
+// odošle sa tam ako JSON. Inak sa otvorí e-mail s vyplnenými údajmi.
+import { akcie } from '../data/akcie';
+import { site } from '../data/site';
+interface Props { preselect?: string }
+const { preselect } = Astro.props;
+const endpoint = import.meta.env.PUBLIC_INQUIRY_ENDPOINT ?? '';
+---
+<form class="form" id="inquiry-form" data-endpoint={endpoint} data-email={site.email} novalidate>
+  <div class="field form__full">
+    <label for="f-typ">Čo plánujete?</label>
+    <select id="f-typ" name="typ">
+      {akcie.map((a) => <option value={a.title} selected={a.slug === preselect}>{a.title}</option>)}
+      <option value="Iné">Niečo iné</option>
+    </select>
+  </div>
+  <div class="field"><label for="f-datum">Dátum</label><input id="f-datum" name="datum" type="date" /></div>
+  <div class="field"><label for="f-pocet">Počet hostí</label><input id="f-pocet" name="pocet" type="number" min="1" inputmode="numeric" placeholder="napr. 40" /></div>
+  <div class="field form__full"><label for="f-miesto">Miesto</label><input id="f-miesto" name="miesto" type="text" placeholder="mesto alebo adresa" /></div>
+  <div class="field"><label for="f-meno">Meno</label><input id="f-meno" name="meno" type="text" autocomplete="name" required /></div>
+  <div class="field"><label for="f-email">E-mail</label><input id="f-email" name="email" type="email" autocomplete="email" required /></div>
+  <div class="field form__full"><label for="f-tel">Telefón (nepovinné)</label><input id="f-tel" name="telefon" type="tel" autocomplete="tel" /></div>
+  <div class="field form__full"><label for="f-sprava">Pár slov o akcii</label><textarea id="f-sprava" name="sprava" rows="4" placeholder="téma, farby, obľúbené chute…"></textarea></div>
+  <label class="check form__full"><input type="checkbox" name="suhlas" required /> <span>Súhlasím so spracovaním údajov na účel prípravy cenovej ponuky.</span></label>
+  <div class="form__full btn-row" style="align-items: center">
+    <button type="submit" class="btn btn--primary">Poslať nezáväzný dopyt</button>
+    <p class="form__status" role="status" aria-live="polite"></p>
+  </div>
+</form>
+
+<script>
+  const form = document.getElementById('inquiry-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const status = form.querySelector('.form__status') as HTMLElement;
+    if (!form.checkValidity()) {
+      status.textContent = 'Vyplňte prosím meno, e-mail a súhlas.';
+      form.reportValidity();
+      return;
+    }
+    const data = Object.fromEntries(new FormData(form).entries());
+    const endpoint = form.dataset.endpoint;
+    if (endpoint) {
+      status.textContent = 'Odosielam…';
+      try {
+        const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, zdroj: location.href }) });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        status.textContent = 'Ďakujeme! Ozveme sa zvyčajne do 24 hodín.';
+      } catch {
+        status.textContent = `Niečo sa pokazilo. Napíšte nám prosím na ${form.dataset.email}.`;
+      }
+      return;
+    }
+    const body = Object.entries(data).filter(([k]) => k !== 'suhlas').map(([k, v]) => `${k}: ${v}`).join('\n');
+    location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent('Dopyt: ' + data.typ)}&body=${encodeURIComponent(body)}`;
+  });
+</script>

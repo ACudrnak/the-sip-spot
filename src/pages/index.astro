@@ -1,0 +1,110 @@
+---
+import Base from '../layouts/Base.astro';
+import AkciaCard from '../components/AkciaCard.astro';
+import PostCard from '../components/PostCard.astro';
+import Contact from '../components/Contact.astro';
+import { akcie } from '../data/akcie';
+import { testimonials, eventPhotos } from '../data/site';
+import { getPosts } from '../lib/blog';
+
+const posts = (await getPosts()).slice(0, 3);
+---
+<Base>
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__text">
+        <span class="kicker">Mobilný bar · tastingy · workshopy</span>
+        <h1>Profesionálny bar <em>kamkoľvek.</em></h1>
+        <p class="lead">Nápoje, servis a atmosféra presne podľa vašich predstáv. Na svadbu, firemný večierok, festival, aj ako zážitok pre váš tím.</p>
+        <div class="btn-row">
+          <a href="#kontakt" class="btn btn--light">Nezáväzná cenová ponuka</a>
+          <a href="/akcie/" class="btn btn--ghost">Čo ponúkame</a>
+        </div>
+      </div>
+      <div class="hero__art">
+        <img src="/images/ilustracie/hero.svg" alt="Ilustrácia troch koktailov: mojito, espresso martini a negroni" width="600" height="450" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="kicker">Akcie</span>
+          <h2 style="margin-top: 0.75rem">Čo pre vás <em>pripravíme</em></h2>
+        </div>
+        <p>Od baru na svadbu po koktailový workshop pre firmu. Každá akcia je na mieru.</p>
+      </div>
+      <div class="grid grid--3">
+        {akcie.map((a, i) => <AkciaCard akcia={a} highlight={i === 1} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream" id="onas">
+    <div class="container about">
+      <div class="about__img"><img src="/images/eventy/o-nas.jpg" alt="Barman Sip Spotu pri práci" width="800" height="1000" loading="lazy" /></div>
+      <div class="about__text">
+        <span class="kicker">O nás</span>
+        <h2>Koktejlový bar, ktorý prichádza <em>za vami.</em></h2>
+        <p>Sip Spot je mobilný nápojový catering, ktorý prináša barový zážitok tam, kde ho najviac potrebujete: na svadbu, firemnú párty, oslavu narodenín alebo festival.</p>
+        <p>Záleží nám na detailoch, od úsmevu pri servírovaní až po dizajn pohárov. Sme flexibilní, profesionálni a robíme to s chuťou, pretože vieme, že dobrý drink vie urobiť veľký rozdiel.</p>
+        <div class="stats">
+          <div><div class="stat__num">100 %</div><div class="stat__label">na mieru</div></div>
+          <div><div class="stat__num">SK</div><div class="stat__label">po celom Slovensku</div></div>
+          <div><div class="stat__num">∞</div><div class="stat__label">typov eventov</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="eventy">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="kicker">Eventy</span>
+          <h2 style="margin-top: 0.75rem">Každý event je iný. <em>Každý bar na mieru.</em></h2>
+        </div>
+      </div>
+      <div class="gallery" tabindex="0" aria-label="Galéria eventov, posúvajte do strany">
+        {eventPhotos.map((p) => <img src={p.src} alt={p.alt} width="560" height="700" loading="lazy" />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--green" id="referencie">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="kicker">Referencie</span>
+          <h2 style="margin-top: 0.75rem">Čo hovoria <em>klienti</em></h2>
+        </div>
+      </div>
+      <div class="quotes">
+        {testimonials.map((t) => (
+          <blockquote class="quote"><p>„{t.quote}“</p><cite>— {t.author}</cite></blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="kicker">Blog</span>
+            <h2 style="margin-top: 0.75rem">Za <em>barom</em></h2>
+          </div>
+          <a href="/blog/" class="btn btn--ghost" style="color: var(--green)">Všetky články</a>
+        </div>
+        <div class="grid grid--3">
+          {posts.map((p) => <PostCard post={p} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <Contact />
+</Base>
