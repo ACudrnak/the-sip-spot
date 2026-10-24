@@ -1,0 +1,47 @@
+---
+// Lišta „Nové na blogu“ nad hlavičkou. Zobrazí najnovší článok, ak nie je starší ako DAYS dní.
+// Návštevník ju môže zavrieť; zapamätá sa to pre konkrétny článok (localStorage), takže pri ďalšom novom článku sa ukáže znova.
+import { getPosts } from '../lib/blog';
+
+const DAYS = 14;
+const [latest] = await getPosts();
+const fresh = latest && Date.now() - latest.data.date.getTime() < DAYS * 24 * 60 * 60 * 1000;
+---
+{fresh && (
+  <div class="newpost" id="newpost" data-slug={latest.id} data-date={latest.data.date.toISOString()} data-days={DAYS} hidden>
+    <div class="container newpost__inner">
+      <span class="newpost__label">Nové na blogu</span>
+      <a href={`/blog/${latest.id}/`} class="newpost__link">{latest.data.title} →</a>
+      <button type="button" class="newpost__close" aria-label="Zavrieť oznámenie">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+      </button>
+    </div>
+  </div>
+)}
+
+<script>
+  const bar = document.getElementById('newpost');
+  if (bar) {
+    const key = 'sipspot-newpost-closed';
+    let closed: string | null = null;
+    try { closed = localStorage.getItem(key); } catch { /* súkromné okno */ }
+    const onPostPage = location.pathname.startsWith(`/blog/${bar.dataset.slug}`);
+    // Web je statický: kontrolu veku robíme aj v prehliadači, aby lišta zmizla, aj keď sa web dlho neprestaval.
+    const age = Date.now() - new Date(bar.dataset.date ?? 0).getTime();
+    const tooOld = age > Number(bar.dataset.days) * 24 * 60 * 60 * 1000;
+    if (closed !== bar.dataset.slug && !onPostPage && !tooOld) bar.hidden = false;
+    bar.querySelector('.newpost__close')?.addEventListener('click', () => {
+      bar.hidden = true;
+      try { localStorage.setItem(key, bar.dataset.slug ?? ''); } catch { /* nič */ }
+    });
+  }
+</script>
+
+<style>
+  .newpost { background: var(--green-dark); color: var(--cream); font-size: 0.95rem; }
+  .newpost__inner { display: flex; align-items: center; gap: 0.75rem; min-height: 44px; }
+  .newpost__label { flex: none; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; background: var(--cream); color: var(--green-dark); padding: 0.2rem 0.6rem; border-radius: 999px; }
+  .newpost__link { color: var(--paper); text-decoration: none; font-weight: 500; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .newpost__link:hover { color: var(--cream); text-decoration: underline; }
+  .newpost__close { flex: none; width: 44px; height: 44px; display: grid; place-items: center; background: none; border: none; color: var(--cream); cursor: pointer; }
+</style>
