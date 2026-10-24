@@ -82,7 +82,7 @@ Text článku v Markdowne. ## Nadpis, **tučné**, *kurzíva*, zoznamy, > citát
 
 ### Šablóny, vzhľad a bloky
 
-Článok nemusí mať text pod hlavičkou. Celý obsah sa dá poskladať z **blokov** v poli `blocks`. Každý článok tak môže vyzerať inak, ale vždy v dizajne Sip Spotu. Ukážky: `paloma-historia-a-recept.md`, `espresso-martini-doma.md`, `ukazka-recenzia-baru.md`, `ukazka-rozhovor-s-barmanom.md`.
+Článok nemusí mať text pod hlavičkou. Celý obsah sa dá poskladať z **blokov** v poli `blocks`. Každý článok tak môže vyzerať inak, ale vždy v dizajne Sip Spotu. Ukážky: `paloma-historia-a-recept.md`, `espresso-martini-doma.md`, `negroni-pribeh-grofa.md`. Šablóny `recenzia` a `rozhovor` a bloky `rating`, `place`, `profile`, `qa`, `podcast` ostávajú pripravené na neskôr. Ukážkové články s vymysleným barom a barmanom sú v histórii gitu (commit `2354b00`, súbory `ukazka-*.md`).
 
 | Pole | Hodnoty | Čo robí |
 | --- | --- | --- |
@@ -149,7 +149,7 @@ Staré adresy: `zasady-cookies.html` presmeruje na `/zasady-cookies/`.
 - [ ] Doplniť formát a ceny workshopov a tastingov (`src/data/akcie.ts`).
 - [ ] Po prechode na s.r.o. aktualizovať firmu, IČO a adresu (`src/data/site.ts`).
 - [ ] Overiť prevádzkovateľa v zásadách cookies – pôvodný web uvádza Ravello s. r. o., čo nesedí s kontaktom.
-- [ ] Skontrolovať a zverejniť články o Palome a Espresso Martini (`draft: false`).
-- [ ] Pred spustením zmazať ukážkové články `ukazka-*.md` (vymyslený bar a barman).
+- [x] Skontrolovať a zverejniť články o Palome a Espresso Martini (`draft: false`).
+- [x] Pred spustením zmazať ukážkové články `ukazka-*.md` (vymyslený bar a barman).
 - [ ] Nastaviť n8n webhook pre formulár.
 - [ ] Fotky z workshopov a tastingov namiesto ilustrácií, keď budú.

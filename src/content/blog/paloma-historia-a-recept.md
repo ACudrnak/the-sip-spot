@@ -10,7 +10,7 @@ image: "/images/ilustracie/paloma.svg"
 imageAlt: "Ilustrácia drinku Paloma s grapefruitom a soľným okrajom"
 author: "Sip Spot"
 tags: ["tequila", "grapefruit", "recept", "mexiko"]
-draft: true
+draft: false
 blocks:
   - type: text
     md: |

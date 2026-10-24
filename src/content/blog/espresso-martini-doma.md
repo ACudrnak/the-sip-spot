@@ -10,7 +10,7 @@ image: "/images/ilustracie/espresso.svg"
 imageAlt: "Ilustrácia espresso martini s tromi kávovými zrnkami"
 author: "Sip Spot"
 tags: ["vodka", "káva", "recept"]
-draft: true
+draft: false
 blocks:
   - type: text
     md: |
