@@ -9,7 +9,7 @@ Formát článku a bloky: pozri `README.md`, časť „Blog: formát článku“
 
 - [x] Paloma: história a recept — hotové (`paloma-historia-a-recept.md`)
 - [x] Espresso Martini doma — hotové (`espresso-martini-doma.md`)
-- [ ] Negroni: príbeh grófa a dokonalej rovnováhy — typ pribeh, časová os, mýty, recept, varianty (Boulevardier, Sbagliato)
+- [x] Negroni: príbeh grófa a dokonalej rovnováhy — hotové (`negroni-pribeh-grofa.md`)
 - [ ] Ľad v koktailoch: prečo na ňom záleží — typ navod, chyby vs. správne, tipy, ako urobiť číry ľad doma
 - [ ] Shake alebo stir: kedy čo a prečo — typ navod, kroky, chyby vs. správne
 - [ ] Domáci cukrový sirup a ochutené sirupy — typ navod, recepty na 3 sirupy, tipy na skladovanie
